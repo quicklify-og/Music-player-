@@ -30,15 +30,22 @@
 } 
 
 :root { 
- --main-color: red ;
- --shadow-color: rgba(93, 38, 193, 0.4);
+ --main-color: #ff4757;
+ --main-color-dark: #ff3742;
+ --secondary-color: #5352ed;
+ --accent-color: #7bed9f;
+ --shadow-color: rgba(255, 71, 87, 0.3);
+ --light-gray: #f8f9fa;
+ --dark-gray: #495057;
+ --text-color: #2c2c2c;
 }
 
 body { 
  width: 100%;
- height: 100vh;
- background-image: linear-gradient(45deg, var(--main-color) 45%, #ffffff 0%);
- background-repeat: no-repeat; 
+ min-height: 100vh;
+ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ background-attachment: fixed;
+ font-family: "Poppins", sans-serif;
 }
 
 
@@ -72,16 +79,19 @@ body {
 
 
 #formContent {
-  border-radius: 10px;
-  background: #fff;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   width: 95%;
-  max-width: 540px;
+  max-width: 600px;
   min-height: 350px;
   max-height: 100%;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.05);
+  overflow: hidden;
 }
 
 #navbarId { 
@@ -98,41 +108,54 @@ img {
 
 h2 {
   text-align: center;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 700;
   text-transform: uppercase;
   display: inline-block;
-  letter-spacing: 0.4px;
-  margin: 5px 8px 20px 8px; 
-  color: #636e72;
-  border-bottom: 1px solid #636e72;
+  letter-spacing: 1px;
+  margin: 10px 8px 30px 8px; 
+  background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
+  border-radius: 2px;
 }
 
 
 input[type=text],select {
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
-  padding: 12px 32px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: var(--text-color);
+  padding: 16px 24px;
   text-align: left;
   text-decoration: none;
   display: block;
-  font-size: 14px;
-  margin: 5px auto;
+  font-size: 16px;
+  margin: 10px auto;
   width: 85%;
-  border: 2px solid #f6f6f6;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  font-weight: 500;
 }
 
 input[type=text]:focus {
-  background-color: #fff;
-  border-bottom: 2px solid var(--main-color);
+  background: #fff;
+  border: 2px solid var(--main-color);
+  box-shadow: 0 0 0 4px rgba(255, 71, 87, 0.1), 0 8px 25px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
 }
 
 input[type=text]:placeholder {
@@ -143,39 +166,50 @@ input[type=text]:placeholder {
 /* FORM TYPOGRAPHY*/
 
 input[type=button], input[type=submit], input[type=reset]  {
-  background-color: var(--main-color);
+  background: linear-gradient(135deg, var(--main-color), var(--main-color-dark));
   border: none;
   color: white;
   letter-spacing: 1px;
-  padding: 12px 80px;
+  padding: 16px 40px;
   text-align: center;
   text-decoration: none;
   display: block;
   text-transform: uppercase;
-  font-size: 13px;
-  -webkit-box-shadow: 0 10px 30px 0 var(--shadow-color);
-  box-shadow: 0 10px 30px 0 var(--shadow-color);
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-  margin: 5px auto 35px auto;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 25px var(--shadow-color), 0 0 0 1px rgba(255,255,255,0.1);
+  border-radius: 12px;
+  margin: 15px auto 35px auto;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+input[type=button]::before, input[type=submit]::before, input[type=reset]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
 }
 
 input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
-  background-color: var(--main-color);
+  background: linear-gradient(135deg, var(--main-color-dark), var(--main-color));
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px var(--shadow-color), 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+input[type=button]:hover::before, input[type=submit]:hover::before, input[type=reset]:hover::before {
+  left: 100%;
 }
 
 input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
-  -moz-transform: scale(0.95);
-  -webkit-transform: scale(0.95);
-  -o-transform: scale(0.95);
-  -ms-transform: scale(0.95);
-  transform: scale(0.95);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px var(--shadow-color);
 }
 
 /* Simple CSS3 Fade-in Animation */
@@ -370,17 +404,36 @@ if(count($results) > 0) {
         echo "<style>
         #image{border-radius:65px;}
         .song-card {
-            border: 2px solid #f0f0f0;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px 0;
-            background: #fafafa;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .song-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 71, 87, 0.1), transparent);
+            transition: left 0.6s;
         }
         .song-card:hover {
             border-color: var(--main-color);
-            background: #f5f5f5;
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15), 0 0 0 1px var(--main-color);
+        }
+        .song-card:hover::before {
+            left: 100%;
         }
         .close-btn {
             background: #ff4444;
@@ -398,21 +451,46 @@ if(count($results) > 0) {
             background: #cc0000;
         }
         .play-btn {
-            background: var(--main-color);
+            background: linear-gradient(135deg, var(--main-color), var(--main-color-dark));
             color: white;
             border: none;
-            border-radius: 5px;
-            padding: 8px 15px;
+            border-radius: 8px;
+            padding: 10px 20px;
             cursor: pointer;
-            font-size: 12px;
-            margin-top: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
         }
         .play-btn:hover {
-            opacity: 0.8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
         }
         .audio-player {
             display: none;
-            margin-top: 10px;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(248, 249, 250, 0.8);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .audio-player audio {
+            width: 100%;
+            height: 40px;
+            border-radius: 8px;
+            outline: none;
+        }
+        
+        .preview-note {
+            font-size: 11px;
+            color: #666;
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: rgba(255, 193, 7, 0.1);
+            border-radius: 6px;
+            border-left: 3px solid #ffc107;
         }
         </style>";
         
@@ -457,7 +535,7 @@ if(count($results) > 0) {
                 echo "<source src='$preview' type='audio/mpeg'>";
                 echo "Your browser does not support the audio element.";
                 echo "</audio>";
-                echo "<div style='font-size: 11px; color: #666; margin-top: 5px;'>📽️ 30-second preview only</div>";
+                echo "<div class='preview-note'>🎵 30-second preview only - Full songs available on streaming platforms</div>";
                 echo "</div>";
                 echo "</div>";
                 echo "<div style='clear: both;'></div>";
@@ -517,7 +595,7 @@ if(count($results) > 0) {
         }
         </script>";
         
-        echo "<br><div style='background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; padding: 15px; margin: 10px 0;'>";
+        echo "<br><div style='background: linear-gradient(135deg, rgba(255, 243, 205, 0.9), rgba(255, 234, 167, 0.9)); border: 1px solid rgba(255, 193, 7, 0.3); border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.1); backdrop-filter: blur(5px);'>";
         echo "<font color='#856404' size='2'><b>🎵 About QuickMusic:</b><br>";
         echo "• <b>Music Discovery:</b> Search and preview songs with high-quality clips<br>";
         echo "• <b>Legal Previews:</b> 30-second previews provided by iTunes Store<br>";
