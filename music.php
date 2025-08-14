@@ -1817,6 +1817,20 @@
       color: #888;
       font-weight: 400;
     }
+    .form-group.error input {
+      border-color: #ff4d4d;
+      box-shadow: 0 0 20px rgba(255, 77, 77, 0.3);
+    }
+    .field-error {
+      color: #ff4d4d;
+      font-size: 12px;
+      margin-top: 5px;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .toggle-password {
       position: absolute !important;
       right: 15px !important;
@@ -2911,6 +2925,11 @@
     let currentSongForPlaylist = null;
     let currentPage = 'home';
     const API_KEY = 'YOUR_YOUTUBE_API_KEY'; // Replace with your YouTube API key
+
+    // Advanced User Database Simulation
+    let userDatabase = JSON.parse(localStorage.getItem('userDatabase')) || {};
+    let sessionData = JSON.parse(localStorage.getItem('sessionData')) || {};
+    let loginAttempts = JSON.parse(localStorage.getItem('loginAttempts')) || {};
     const searchInput = document.getElementById('searchInput');
     const clearInput = document.getElementById('clearInput');
     const suggestions = document.getElementById('suggestions');
@@ -2957,14 +2976,122 @@
       }
     }
 
-    // Profile Page Functions
+    // Advanced Authentication System
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+    let currentSession = null;
+
+    // Password strength checker
+    function checkPasswordStrength(password) {
+      const minLength = password.length >= 8;
+      const hasUpper = /[A-Z]/.test(password);
+      const hasLower = /[a-z]/.test(password);
+      const hasNumber = /\d/.test(password);
+      const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+      
+      const strength = [minLength, hasUpper, hasLower, hasNumber, hasSpecial].filter(Boolean).length;
+      return { strength, minLength, hasUpper, hasLower, hasNumber, hasSpecial };
+    }
+
+    // Email validation
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    // Generate session token
+    function generateSessionToken() {
+      return 'sess_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Hash password simulation (in real app, use proper bcrypt)
+    function hashPassword(password) {
+      let hash = 0;
+      for (let i = 0; i < password.length; i++) {
+        const char = password.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+      }
+      return 'hash_' + Math.abs(hash).toString(36);
+    }
+
+    // Rate limiting for login attempts
+    function checkRateLimit(email) {
+      const now = Date.now();
+      const attempts = loginAttempts[email] || { count: 0, lastAttempt: 0 };
+      
+      // Reset if last attempt was more than 15 minutes ago
+      if (now - attempts.lastAttempt > 15 * 60 * 1000) {
+        attempts.count = 0;
+      }
+      
+      return attempts.count < 5;
+    }
+
+    // Record login attempt
+    function recordLoginAttempt(email, success) {
+      const now = Date.now();
+      if (!loginAttempts[email]) {
+        loginAttempts[email] = { count: 0, lastAttempt: 0 };
+      }
+      
+      if (success) {
+        delete loginAttempts[email];
+      } else {
+        loginAttempts[email].count++;
+        loginAttempts[email].lastAttempt = now;
+      }
+      
+      localStorage.setItem('loginAttempts', JSON.stringify(loginAttempts));
+    }
+
+    // Create user session
+    function createUserSession(user) {
+      const sessionToken = generateSessionToken();
+      const sessionData = {
+        token: sessionToken,
+        userId: user.id,
+        createdAt: Date.now(),
+        lastActivity: Date.now(),
+        userAgent: navigator.userAgent,
+        ipAddress: 'simulated_ip'
+      };
+      
+      localStorage.setItem('currentSession', JSON.stringify(sessionData));
+      localStorage.setItem('sessionData', JSON.stringify({
+        ...JSON.parse(localStorage.getItem('sessionData') || '{}'),
+        [sessionToken]: sessionData
+      }));
+      
+      return sessionData;
+    }
+
+    // Validate session
+    function validateSession() {
+      const session = JSON.parse(localStorage.getItem('currentSession'));
+      if (!session) return false;
+      
+      const now = Date.now();
+      const sessionAge = now - session.createdAt;
+      const inactivityTime = now - session.lastActivity;
+      
+      // Session expires after 7 days or 2 hours of inactivity
+      if (sessionAge > 7 * 24 * 60 * 60 * 1000 || inactivityTime > 2 * 60 * 60 * 1000) {
+        logoutUser();
+        return false;
+      }
+      
+      // Update last activity
+      session.lastActivity = now;
+      localStorage.setItem('currentSession', JSON.stringify(session));
+      return true;
+    }
 
     function checkUserLoginStatus() {
-      if (currentUser) {
+      if (currentUser && validateSession()) {
         document.getElementById('auth-section').style.display = 'none';
         document.getElementById('user-profile-section').style.display = 'block';
         updateUserProfile();
+        updateActivityLog('Page visited', 'Accessed profile page');
       } else {
         document.getElementById('auth-section').style.display = 'flex';
         document.getElementById('user-profile-section').style.display = 'none';
@@ -2977,6 +3104,9 @@
       document.querySelectorAll('.auth-toggle-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelector('.auth-toggle-btn:first-child').classList.add('active');
       document.querySelector('.auth-toggle').classList.remove('register');
+      
+      // Clear any previous error messages
+      clearAuthErrors();
     }
 
     function showRegisterForm() {
@@ -2985,6 +3115,33 @@
       document.querySelectorAll('.auth-toggle-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelector('.auth-toggle-btn:last-child').classList.add('active');
       document.querySelector('.auth-toggle').classList.add('register');
+      
+      // Clear any previous error messages
+      clearAuthErrors();
+    }
+
+    function clearAuthErrors() {
+      document.querySelectorAll('.field-error').forEach(el => el.remove());
+      document.querySelectorAll('.form-group').forEach(group => {
+        group.classList.remove('error');
+      });
+    }
+
+    function showFieldError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const group = field.closest('.form-group');
+      group.classList.add('error');
+      
+      // Remove existing error
+      const existingError = group.querySelector('.field-error');
+      if (existingError) existingError.remove();
+      
+      // Add new error
+      const error = document.createElement('div');
+      error.className = 'field-error';
+      error.style.cssText = 'color: #ff4d4d; font-size: 12px; margin-top: 5px;';
+      error.textContent = message;
+      group.appendChild(error);
     }
 
     function togglePassword(inputId, icon) {
@@ -3002,89 +3159,277 @@
 
     function loginUser(event) {
       event.preventDefault();
-      const email = document.getElementById('login-email').value;
+      clearAuthErrors();
+      
+      const email = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-password').value;
       const rememberMe = document.getElementById('remember-me').checked;
 
-      // Simulate login (in real app, you'd call your authentication API)
-      if (email && password) {
-        const userData = {
-          name: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
-          email: email,
-          avatar: `https://ui-avatars.com/api/?name=${email.split('@')[0]}&background=1DB954&color=fff&size=150`,
-          joinDate: new Date().toISOString(),
-          lastLogin: new Date().toISOString()
-        };
+      // Validation
+      let hasErrors = false;
 
-        currentUser = userData;
-        localStorage.setItem('currentUser', JSON.stringify(userData));
-        
-        if (rememberMe) {
-          localStorage.setItem('rememberUser', 'true');
-        }
-
-        showDownloadMessage(`Welcome back, ${userData.name}!`);
-        checkUserLoginStatus();
-      } else {
-        showDownloadMessage('Please fill in all fields', true);
+      if (!email) {
+        showFieldError('login-email', 'Email is required');
+        hasErrors = true;
+      } else if (!validateEmail(email)) {
+        showFieldError('login-email', 'Please enter a valid email address');
+        hasErrors = true;
       }
+
+      if (!password) {
+        showFieldError('login-password', 'Password is required');
+        hasErrors = true;
+      }
+
+      if (hasErrors) return;
+
+      // Check rate limiting
+      if (!checkRateLimit(email)) {
+        showDownloadMessage('Too many login attempts. Please try again in 15 minutes.', true);
+        return;
+      }
+
+      // Check if user exists
+      const user = userDatabase[email];
+      if (!user) {
+        recordLoginAttempt(email, false);
+        showFieldError('login-email', 'No account found with this email');
+        return;
+      }
+
+      // Verify password
+      const hashedPassword = hashPassword(password);
+      if (user.passwordHash !== hashedPassword) {
+        recordLoginAttempt(email, false);
+        showFieldError('login-password', 'Incorrect password');
+        return;
+      }
+
+      // Successful login
+      recordLoginAttempt(email, true);
+      user.lastLogin = new Date().toISOString();
+      user.loginCount = (user.loginCount || 0) + 1;
+      
+      currentUser = user;
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      localStorage.setItem('userDatabase', JSON.stringify(userDatabase));
+      
+      createUserSession(user);
+      
+      if (rememberMe) {
+        localStorage.setItem('rememberUser', 'true');
+      }
+
+      showDownloadMessage(`Welcome back, ${user.name}!`);
+      updateActivityLog('Login', 'Successfully logged in');
+      checkUserLoginStatus();
     }
 
     function registerUser(event) {
       event.preventDefault();
-      const name = document.getElementById('register-name').value;
-      const email = document.getElementById('register-email').value;
+      clearAuthErrors();
+      
+      const name = document.getElementById('register-name').value.trim();
+      const email = document.getElementById('register-email').value.trim();
       const password = document.getElementById('register-password').value;
       const confirmPassword = document.getElementById('confirm-password').value;
       const agreeTerms = document.getElementById('agree-terms').checked;
 
-      if (!name || !email || !password || !confirmPassword) {
-        showDownloadMessage('Please fill in all fields', true);
-        return;
+      // Validation
+      let hasErrors = false;
+
+      if (!name) {
+        showFieldError('register-name', 'Full name is required');
+        hasErrors = true;
+      } else if (name.length < 2) {
+        showFieldError('register-name', 'Name must be at least 2 characters');
+        hasErrors = true;
       }
 
-      if (password !== confirmPassword) {
-        showDownloadMessage('Passwords do not match', true);
-        return;
+      if (!email) {
+        showFieldError('register-email', 'Email is required');
+        hasErrors = true;
+      } else if (!validateEmail(email)) {
+        showFieldError('register-email', 'Please enter a valid email address');
+        hasErrors = true;
+      } else if (userDatabase[email]) {
+        showFieldError('register-email', 'An account with this email already exists');
+        hasErrors = true;
+      }
+
+      if (!password) {
+        showFieldError('register-password', 'Password is required');
+        hasErrors = true;
+      } else {
+        const passwordCheck = checkPasswordStrength(password);
+        if (passwordCheck.strength < 3) {
+          showFieldError('register-password', 'Password must be stronger (8+ chars, uppercase, lowercase, number)');
+          hasErrors = true;
+        }
+      }
+
+      if (!confirmPassword) {
+        showFieldError('confirm-password', 'Please confirm your password');
+        hasErrors = true;
+      } else if (password !== confirmPassword) {
+        showFieldError('confirm-password', 'Passwords do not match');
+        hasErrors = true;
       }
 
       if (!agreeTerms) {
         showDownloadMessage('Please agree to the Terms & Conditions', true);
-        return;
+        hasErrors = true;
       }
 
-      // Simulate registration (in real app, you'd call your registration API)
+      if (hasErrors) return;
+
+      // Create new user
       const userData = {
+        id: 'user_' + Date.now(),
         name: name,
         email: email,
-        avatar: `https://ui-avatars.com/api/?name=${name}&background=1DB954&color=fff&size=150`,
+        passwordHash: hashPassword(password),
+        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=1DB954&color=fff&size=150`,
         joinDate: new Date().toISOString(),
-        lastLogin: new Date().toISOString()
+        lastLogin: new Date().toISOString(),
+        loginCount: 1,
+        isVerified: false,
+        settings: {
+          darkMode: true,
+          autoplay: true,
+          highQuality: false,
+          notifications: true
+        }
       };
+
+      // Save to database
+      userDatabase[email] = userData;
+      localStorage.setItem('userDatabase', JSON.stringify(userDatabase));
 
       currentUser = userData;
       localStorage.setItem('currentUser', JSON.stringify(userData));
+      
+      createUserSession(userData);
 
       showDownloadMessage(`Welcome to QuickMusic, ${userData.name}!`);
+      updateActivityLog('Registration', 'Account created successfully');
       checkUserLoginStatus();
     }
 
-    function socialLogin(provider) {
-      // Simulate social login
+    async function socialLogin(provider) {
+      // Simulate OAuth flow with realistic delay
+      showDownloadMessage(`Connecting to ${provider.charAt(0).toUpperCase() + provider.slice(1)}...`);
+      
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      const providerEmails = {
+        google: '@gmail.com',
+        spotify: '@spotify.user'
+      };
+      
+      const email = `user${Date.now()}${providerEmails[provider]}`;
       const userData = {
+        id: 'user_' + Date.now(),
         name: `${provider.charAt(0).toUpperCase() + provider.slice(1)} User`,
-        email: `user@${provider}.com`,
+        email: email,
         avatar: `https://ui-avatars.com/api/?name=${provider}&background=1DB954&color=fff&size=150`,
         joinDate: new Date().toISOString(),
         lastLogin: new Date().toISOString(),
-        provider: provider
+        loginCount: 1,
+        provider: provider,
+        isVerified: true,
+        settings: {
+          darkMode: true,
+          autoplay: true,
+          highQuality: provider === 'spotify',
+          notifications: true
+        }
       };
+
+      userDatabase[email] = userData;
+      localStorage.setItem('userDatabase', JSON.stringify(userDatabase));
 
       currentUser = userData;
       localStorage.setItem('currentUser', JSON.stringify(userData));
+      
+      createUserSession(userData);
 
-      showDownloadMessage(`Logged in with ${provider.charAt(0).toUpperCase() + provider.slice(1)}!`);
+      showDownloadMessage(`Successfully logged in with ${provider.charAt(0).toUpperCase() + provider.slice(1)}!`);
+      updateActivityLog('Social Login', `Logged in via ${provider}`);
       checkUserLoginStatus();
+    }
+
+    // Activity logging
+    function updateActivityLog(action, details) {
+      if (!currentUser) return;
+      
+      const activities = JSON.parse(localStorage.getItem(`activities_${currentUser.id}`)) || [];
+      activities.unshift({
+        id: Date.now(),
+        action: action,
+        details: details,
+        timestamp: new Date().toISOString(),
+        sessionId: currentSession?.token || 'unknown'
+      });
+      
+      // Keep only last 50 activities
+      if (activities.length > 50) {
+        activities.splice(50);
+      }
+      
+      localStorage.setItem(`activities_${currentUser.id}`, JSON.stringify(activities));
+      displayRecentActivity();
+    }
+
+    function displayRecentActivity() {
+      if (!currentUser) return;
+      
+      const activities = JSON.parse(localStorage.getItem(`activities_${currentUser.id}`)) || [];
+      const activityList = document.getElementById('activity-list');
+      
+      if (activities.length === 0) {
+        activityList.innerHTML = '<p style="color: #b3b3b3;">No recent activity</p>';
+        return;
+      }
+      
+      activityList.innerHTML = activities.slice(0, 10).map(activity => {
+        const timeAgo = getTimeAgo(new Date(activity.timestamp));
+        const iconMap = {
+          'Login': 'fas fa-sign-in-alt',
+          'Logout': 'fas fa-sign-out-alt',
+          'Registration': 'fas fa-user-plus',
+          'Social Login': 'fab fa-google',
+          'Song Played': 'fas fa-play',
+          'Song Downloaded': 'fas fa-download',
+          'Favorite Added': 'fas fa-heart',
+          'Playlist Created': 'fas fa-list-ul',
+          'Page visited': 'fas fa-eye'
+        };
+        
+        return `
+          <div class="activity-item">
+            <i class="${iconMap[activity.action] || 'fas fa-circle'}"></i>
+            <div class="activity-info">
+              <span class="activity-title">${activity.details}</span>
+              <span class="activity-time">${timeAgo}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function getTimeAgo(date) {
+      const now = new Date();
+      const diffMs = now - date;
+      const diffSecs = Math.floor(diffMs / 1000);
+      const diffMins = Math.floor(diffSecs / 60);
+      const diffHours = Math.floor(diffMins / 60);
+      const diffDays = Math.floor(diffHours / 24);
+      
+      if (diffSecs < 60) return 'Just now';
+      if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+      if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+      return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
     }
 
     function updateUserProfile() {
@@ -3094,10 +3439,28 @@
       document.getElementById('user-display-name').textContent = currentUser.name;
       document.getElementById('user-email').textContent = currentUser.email;
       
-      // Update stats
-      document.getElementById('total-playlists').textContent = playlists.length;
-      document.getElementById('total-favorites').textContent = favorites.length;
-      document.getElementById('total-listening').textContent = Math.floor(Math.random() * 100) + 1; // Random hours for demo
+      // Update stats with real data
+      const userPlaylists = playlists.filter(p => p.createdBy === currentUser.id);
+      const userFavorites = favorites.filter(f => f.userId === currentUser.id);
+      
+      document.getElementById('total-playlists').textContent = userPlaylists.length;
+      document.getElementById('total-favorites').textContent = userFavorites.length;
+      
+      // Calculate listening time from activity
+      const activities = JSON.parse(localStorage.getItem(`activities_${currentUser.id}`)) || [];
+      const playActivities = activities.filter(a => a.action === 'Song Played').length;
+      const estimatedHours = Math.floor(playActivities * 3.5 / 60); // Assuming 3.5 min average song
+      
+      document.getElementById('total-listening').textContent = estimatedHours;
+      
+      // Load user settings
+      if (currentUser.settings) {
+        document.getElementById('dark-mode-toggle').checked = currentUser.settings.darkMode;
+        document.getElementById('autoplay-toggle').checked = currentUser.settings.autoplay;
+        document.getElementById('hq-audio-toggle').checked = currentUser.settings.highQuality;
+      }
+      
+      displayRecentActivity();
     }
 
     function showProfileSection(section) {
@@ -3111,22 +3474,106 @@
     }
 
     function editProfile() {
-      // Simple profile editing (in real app, you'd have a proper form)
-      const newName = prompt('Enter your new name:', currentUser.name);
-      if (newName && newName.trim()) {
-        currentUser.name = newName.trim();
-        currentUser.avatar = `https://ui-avatars.com/api/?name=${newName.trim()}&background=1DB954&color=fff&size=150`;
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        updateUserProfile();
-        showDownloadMessage('Profile updated successfully!');
-      }
+      // Create a more sophisticated profile editor
+      const modal = document.createElement('div');
+      modal.className = 'playlist-modal active';
+      modal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+          <h3>Edit Profile</h3>
+          <div class="form-group">
+            <label style="color: #fff; margin-bottom: 5px; display: block;">Full Name</label>
+            <input type="text" id="edit-name" class="modal-input" value="${currentUser.name}" maxlength="50">
+          </div>
+          <div class="form-group">
+            <label style="color: #fff; margin-bottom: 5px; display: block;">Avatar URL (optional)</label>
+            <input type="url" id="edit-avatar" class="modal-input" value="${currentUser.avatar}" placeholder="https://example.com/avatar.jpg">
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-btn secondary" onclick="this.closest('.playlist-modal').remove()">Cancel</button>
+            <button class="modal-btn primary" onclick="saveProfileChanges()">Save Changes</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
     }
+
+    function saveProfileChanges() {
+      const newName = document.getElementById('edit-name').value.trim();
+      const newAvatar = document.getElementById('edit-avatar').value.trim();
+      
+      if (!newName) {
+        showDownloadMessage('Name cannot be empty', true);
+        return;
+      }
+      
+      if (newName.length < 2) {
+        showDownloadMessage('Name must be at least 2 characters', true);
+        return;
+      }
+      
+      // Update user data
+      currentUser.name = newName;
+      if (newAvatar) {
+        currentUser.avatar = newAvatar;
+      } else {
+        currentUser.avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(newName)}&background=1DB954&color=fff&size=150`;
+      }
+      
+      // Update in database
+      userDatabase[currentUser.email] = currentUser;
+      localStorage.setItem('userDatabase', JSON.stringify(userDatabase));
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      
+      updateUserProfile();
+      updateActivityLog('Profile Update', 'Profile information updated');
+      showDownloadMessage('Profile updated successfully!');
+      
+      document.querySelector('.playlist-modal').remove();
+    }
+
+    // Settings change handlers
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const toggles = ['dark-mode-toggle', 'autoplay-toggle', 'hq-audio-toggle'];
+        toggles.forEach(toggleId => {
+          const toggle = document.getElementById(toggleId);
+          if (toggle) {
+            toggle.addEventListener('change', (e) => {
+              if (!currentUser) return;
+              
+              const setting = toggleId.replace('-toggle', '').replace('-', '');
+              const settingMap = {
+                'darkmode': 'darkMode',
+                'autoplay': 'autoplay',
+                'hqaudio': 'highQuality'
+              };
+              
+              currentUser.settings = currentUser.settings || {};
+              currentUser.settings[settingMap[setting]] = e.target.checked;
+              
+              userDatabase[currentUser.email] = currentUser;
+              localStorage.setItem('userDatabase', JSON.stringify(userDatabase));
+              localStorage.setItem('currentUser', JSON.stringify(currentUser));
+              
+              updateActivityLog('Settings', `${settingMap[setting]} ${e.target.checked ? 'enabled' : 'disabled'}`);
+            });
+          }
+        });
+      }, 100);
+    });
 
     function logoutUser() {
       if (confirm('Are you sure you want to logout?')) {
-        currentUser = null;
+        updateActivityLog('Logout', 'User logged out');
+        
+        // Clear session data
+        localStorage.removeItem('currentSession');
         localStorage.removeItem('currentUser');
         localStorage.removeItem('rememberUser');
+        
+        currentUser = null;
+        currentSession = null;
+        
         showDownloadMessage('Logged out successfully');
         checkUserLoginStatus();
       }
@@ -3416,9 +3863,16 @@
       if (isFavorited) {
         favorites = favorites.filter(fav => fav.id !== song.id);
         showDownloadMessage(`Removed ${song.name} from favorites`, false);
+        if (currentUser) {
+          updateActivityLog('Favorite Removed', `Removed "${song.name}" from favorites`);
+        }
       } else {
-        favorites.push(song);
+        const favoriteWithUser = { ...song, userId: currentUser?.id, addedAt: new Date().toISOString() };
+        favorites.push(favoriteWithUser);
         showDownloadMessage(`Added ${song.name} to favorites`, false);
+        if (currentUser) {
+          updateActivityLog('Favorite Added', `Added "${song.name}" to favorites`);
+        }
       }
 
       localStorage.setItem('favorites', JSON.stringify(favorites));
@@ -3458,6 +3912,9 @@
           document.body.removeChild(link);
           window.URL.revokeObjectURL(url);
           showDownloadMessage(`Downloading ${song.name}`);
+          if (currentUser) {
+            updateActivityLog('Song Downloaded', `Downloaded "${song.name}" by ${song.artist}`);
+          }
         } catch (error) {
           console.error('Download error:', error);
           showDownloadMessage('Failed to download the song. Please try again.', true);
@@ -3476,6 +3933,11 @@
 
       // Hide mini player when starting new song
       document.getElementById('mini-player').classList.remove('active');
+
+      // Track activity
+      if (currentUser) {
+        updateActivityLog('Song Played', `Played "${song.name}" by ${song.artist}`);
+      }
 
       if (song.isYouTube) {
         nowPlaying.classList.add('active');
@@ -3714,11 +4176,15 @@
         createdAt: new Date().toISOString()
       };
 
+      newPlaylist.createdBy = currentUser?.id;
       playlists.push(newPlaylist);
       localStorage.setItem('playlists', JSON.stringify(playlists));
       displayPlaylists();
       closePlaylistModal();
       showDownloadMessage(`Playlist "${name}" created successfully!`);
+      if (currentUser) {
+        updateActivityLog('Playlist Created', `Created playlist "${name}"`);
+      }
     }
 
     function displayPlaylists() {
