@@ -1644,6 +1644,808 @@
         image-rendering: crisp-edges;
       }
     }
+
+    /* Profile Page Styles - Crazy Attractive Theme */
+    .auth-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 70vh;
+      padding: 20px;
+      background: radial-gradient(circle at 50% 50%, rgba(29, 185, 84, 0.1) 0%, rgba(138, 43, 226, 0.1) 25%, rgba(30, 144, 255, 0.1) 50%, transparent 70%);
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(29, 185, 84, 0.05), transparent, rgba(138, 43, 226, 0.05), transparent);
+      animation: auth-bg-rotate 20s linear infinite;
+    }
+    @keyframes auth-bg-rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .auth-container {
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(42, 42, 42, 0.95) 50%, rgba(30, 30, 30, 0.95) 100%);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 40px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 10px 30px rgba(29, 185, 84, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      animation: auth-container-glow 4s ease-in-out infinite;
+    }
+    @keyframes auth-container-glow {
+      0%, 100% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 10px 30px rgba(29, 185, 84, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+      50% { box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 15px 40px rgba(138, 43, 226, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15); }
+    }
+    .auth-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(29, 185, 84, 0.1), transparent);
+      animation: auth-shimmer 3s infinite;
+    }
+    @keyframes auth-shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    .auth-toggle {
+      display: flex;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      padding: 5px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-toggle::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: calc(50% - 5px);
+      height: calc(100% - 10px);
+      background: linear-gradient(45deg, #1DB954, #8a2be2);
+      border-radius: 10px;
+      transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 1;
+    }
+    .auth-toggle.register::before {
+      transform: translateX(100%);
+    }
+    .auth-toggle-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: #b3b3b3;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 2;
+      border-radius: 10px;
+    }
+    .auth-toggle-btn.active {
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    .auth-form {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    .auth-form.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .form-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .form-header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(45deg, #1DB954, #8a2be2, #1e90ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+      animation: title-glow 3s infinite;
+    }
+    .form-header p {
+      color: #b3b3b3;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .form-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #1DB954;
+      font-size: 16px;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 15px 45px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-sizing: border-box;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #1DB954;
+      box-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
+      transform: scale(1.02);
+    }
+    .form-group input:focus + i {
+      color: #8a2be2;
+      transform: translateY(-50%) scale(1.2);
+      text-shadow: 0 0 10px #8a2be2;
+    }
+    .form-group input::placeholder {
+      color: #888;
+      font-weight: 400;
+    }
+    .toggle-password {
+      position: absolute !important;
+      right: 15px !important;
+      left: auto !important;
+      cursor: pointer;
+      color: #b3b3b3 !important;
+      font-size: 14px !important;
+    }
+    .toggle-password:hover {
+      color: #1DB954 !important;
+    }
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      font-size: 13px;
+    }
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: #b3b3b3;
+      font-weight: 400;
+    }
+    .checkbox-container input {
+      display: none;
+    }
+    .checkmark {
+      width: 18px;
+      height: 18px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      margin-right: 8px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .checkbox-container input:checked + .checkmark {
+      background: linear-gradient(45deg, #1DB954, #8a2be2);
+      border-color: #1DB954;
+      box-shadow: 0 0 15px rgba(29, 185, 84, 0.5);
+    }
+    .checkbox-container input:checked + .checkmark::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .forgot-password {
+      color: #1DB954;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    .forgot-password:hover {
+      color: #8a2be2;
+      text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+    }
+    .auth-submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #1DB954, #8a2be2, #1e90ff, #ff6b35);
+      background-size: 400% 400%;
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      animation: gradient-shift 4s ease infinite;
+      margin-bottom: 25px;
+    }
+    .auth-submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s;
+    }
+    .auth-submit-btn:hover::before {
+      left: 100%;
+    }
+    .auth-submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(29, 185, 84, 0.4), 0 8px 25px rgba(138, 43, 226, 0.3);
+    }
+    .auth-submit-btn i {
+      font-size: 18px;
+    }
+    .social-login {
+      text-align: center;
+    }
+    .divider {
+      position: relative;
+      margin: 20px 0;
+      color: #888;
+      font-size: 12px;
+    }
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    }
+    .divider span {
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+      padding: 0 15px;
+      position: relative;
+      z-index: 1;
+    }
+    .social-buttons {
+      display: flex;
+      gap: 15px;
+    }
+    .social-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      backdrop-filter: blur(10px);
+    }
+    .social-btn.google:hover {
+      border-color: #db4437;
+      background: rgba(219, 68, 55, 0.2);
+      box-shadow: 0 0 20px rgba(219, 68, 55, 0.3);
+    }
+    .social-btn.spotify:hover {
+      border-color: #1DB954;
+      background: rgba(29, 185, 84, 0.2);
+      box-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
+    }
+
+    /* User Profile Section */
+    .user-profile-section {
+      animation: profileSlideIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    @keyframes profileSlideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      padding: 30px;
+      background: linear-gradient(135deg, rgba(29, 185, 84, 0.1) 0%, rgba(138, 43, 226, 0.1) 50%, rgba(30, 144, 255, 0.1) 100%);
+      border-radius: 20px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+    .profile-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: profile-shimmer 4s infinite;
+    }
+    @keyframes profile-shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    .profile-avatar {
+      position: relative;
+      cursor: pointer;
+    }
+    .profile-avatar img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #1DB954;
+      box-shadow: 0 0 30px rgba(29, 185, 84, 0.5);
+      transition: all 0.3s ease;
+    }
+    .profile-avatar:hover img {
+      transform: scale(1.1);
+      box-shadow: 0 0 40px rgba(29, 185, 84, 0.8);
+    }
+    .avatar-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    .profile-avatar:hover .avatar-overlay {
+      opacity: 1;
+    }
+    .avatar-overlay i {
+      color: #fff;
+      font-size: 24px;
+    }
+    .profile-info {
+      flex: 1;
+    }
+    .profile-info h2 {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(45deg, #1DB954, #8a2be2, #1e90ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 5px;
+      animation: profile-name-glow 3s infinite;
+    }
+    .profile-info p {
+      color: #b3b3b3;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    .profile-stats {
+      display: flex;
+      gap: 30px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-number {
+      display: block;
+      font-size: 24px;
+      font-weight: 800;
+      color: #1DB954;
+      text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .edit-profile-btn {
+      background: linear-gradient(45deg, #1DB954, #8a2be2);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      padding: 12px 25px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .edit-profile-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(29, 185, 84, 0.4);
+    }
+    .profile-content {
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(42, 42, 42, 0.8) 100%);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+    .profile-sections {
+      display: flex;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .profile-section {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #b3b3b3;
+      font-weight: 600;
+      position: relative;
+    }
+    .profile-section::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(45deg, #1DB954, #8a2be2);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .profile-section.active {
+      color: #1DB954;
+      background: rgba(29, 185, 84, 0.1);
+    }
+    .profile-section.active::after {
+      transform: scaleX(1);
+    }
+    .profile-section:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .section-content {
+      display: none;
+      padding: 30px;
+      animation: sectionFadeIn 0.5s ease;
+    }
+    .section-content.active {
+      display: block;
+    }
+    @keyframes sectionFadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section-content h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #1DB954, #8a2be2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    .activity-item:hover {
+      background: rgba(29, 185, 84, 0.1);
+      transform: translateX(5px);
+    }
+    .activity-item i {
+      color: #1DB954;
+      font-size: 18px;
+    }
+    .activity-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .activity-title {
+      color: #fff;
+      font-weight: 600;
+    }
+    .activity-time {
+      color: #888;
+      font-size: 12px;
+    }
+    .settings-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .setting-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    .setting-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .setting-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .setting-title {
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .setting-desc {
+      color: #888;
+      font-size: 12px;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: .4s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background: linear-gradient(45deg, #1DB954, #8a2be2);
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    .logout-btn {
+      background: linear-gradient(45deg, #ff4d4d, #ff6b35);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logout-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255, 77, 77, 0.4);
+    }
+    .premium-card {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 140, 0, 0.1) 100%);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .premium-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+      animation: premium-shimmer 3s infinite;
+    }
+    @keyframes premium-shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    .premium-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .premium-header i {
+      color: #ffd700;
+      font-size: 32px;
+      animation: crown-pulse 2s infinite;
+    }
+    @keyframes crown-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .premium-header h4 {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(45deg, #ffd700, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .premium-features {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 0;
+    }
+    .feature i {
+      color: #1DB954;
+      font-size: 18px;
+    }
+    .feature span {
+      color: #fff;
+      font-weight: 500;
+    }
+    .premium-btn {
+      background: linear-gradient(135deg, #ffd700, #ff8c00, #ff6b35);
+      background-size: 200%;
+      border: none;
+      border-radius: 15px;
+      color: #000;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      animation: premium-btn-glow 3s infinite;
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes premium-btn-glow {
+      0%, 100% { background-position: 0%; }
+      50% { background-position: 100%; }
+    }
+    .premium-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+    }
+
+    /* Responsive Design for Profile */
+    @media (max-width: 768px) {
+      .auth-container {
+        margin: 10px;
+        padding: 30px 20px;
+      }
+      .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+      .profile-stats {
+        justify-content: center;
+        gap: 20px;
+      }
+      .profile-sections {
+        flex-direction: column;
+      }
+      .profile-section {
+        padding: 15px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group input {
+        padding: 12px 40px;
+      }
+      .social-buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .auth-section {
+        padding: 10px;
+      }
+      .auth-container {
+        padding: 25px 15px;
+      }
+      .form-header h2 {
+        font-size: 24px;
+      }
+      .profile-avatar img {
+        width: 100px;
+        height: 100px;
+      }
+      .profile-info h2 {
+        font-size: 24px;
+      }
+      .premium-card {
+        padding: 20px;
+      }
+      .premium-header h4 {
+        font-size: 22px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1717,6 +2519,272 @@
           </div>
         </div>
       </div>
+
+      <!-- Profile Page -->
+      <div id="profile-page" class="page-section">
+        <div class="container">
+          <div class="header">
+            <div class="header-left">
+              <div class="logo-container">
+                <img class="logo" src="Q.png" alt="QuickMusic">
+                <div class="logo-text">QuickMusic</div>
+              </div>
+              <h1>Your Profile</h1>
+            </div>
+          </div>
+
+          <!-- Login/Register Forms -->
+          <div id="auth-section" class="auth-section">
+            <div class="auth-container">
+              <div class="auth-toggle">
+                <button class="auth-toggle-btn active" onclick="showLoginForm()">Login</button>
+                <button class="auth-toggle-btn" onclick="showRegisterForm()">Register</button>
+              </div>
+
+              <!-- Login Form -->
+              <div id="login-form" class="auth-form active">
+                <div class="form-header">
+                  <h2>Welcome Back!</h2>
+                  <p>Sign in to access your music collection</p>
+                </div>
+                <form onsubmit="loginUser(event)">
+                  <div class="form-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="login-email" placeholder="Email Address" required>
+                  </div>
+                  <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('login-password', this)"></i>
+                  </div>
+                  <div class="form-options">
+                    <label class="checkbox-container">
+                      <input type="checkbox" id="remember-me">
+                      <span class="checkmark"></span>
+                      Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                  </div>
+                  <button type="submit" class="auth-submit-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                  </button>
+                </form>
+                <div class="social-login">
+                  <div class="divider">
+                    <span>Or continue with</span>
+                  </div>
+                  <div class="social-buttons">
+                    <button class="social-btn google" onclick="socialLogin('google')">
+                      <i class="fab fa-google"></i>
+                      Google
+                    </button>
+                    <button class="social-btn spotify" onclick="socialLogin('spotify')">
+                      <i class="fab fa-spotify"></i>
+                      Spotify
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Register Form -->
+              <div id="register-form" class="auth-form">
+                <div class="form-header">
+                  <h2>Create Account</h2>
+                  <p>Join QuickMusic and discover amazing music</p>
+                </div>
+                <form onsubmit="registerUser(event)">
+                  <div class="form-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="register-name" placeholder="Full Name" required>
+                  </div>
+                  <div class="form-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="register-email" placeholder="Email Address" required>
+                  </div>
+                  <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="register-password" placeholder="Password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('register-password', this)"></i>
+                  </div>
+                  <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('confirm-password', this)"></i>
+                  </div>
+                  <div class="form-options">
+                    <label class="checkbox-container">
+                      <input type="checkbox" id="agree-terms" required>
+                      <span class="checkmark"></span>
+                      I agree to the <a href="#">Terms & Conditions</a>
+                    </label>
+                  </div>
+                  <button type="submit" class="auth-submit-btn">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                  </button>
+                </form>
+                <div class="social-login">
+                  <div class="divider">
+                    <span>Or continue with</span>
+                  </div>
+                  <div class="social-buttons">
+                    <button class="social-btn google" onclick="socialLogin('google')">
+                      <i class="fab fa-google"></i>
+                      Google
+                    </button>
+                    <button class="social-btn spotify" onclick="socialLogin('spotify')">
+                      <i class="fab fa-spotify"></i>
+                      Spotify
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Profile (shown after login) -->
+          <div id="user-profile-section" class="user-profile-section" style="display: none;">
+            <div class="profile-header">
+              <div class="profile-avatar">
+                <img id="user-avatar" src="https://via.placeholder.com/150" alt="User Avatar">
+                <div class="avatar-overlay">
+                  <i class="fas fa-camera"></i>
+                </div>
+              </div>
+              <div class="profile-info">
+                <h2 id="user-display-name">John Doe</h2>
+                <p id="user-email">john.doe@example.com</p>
+                <div class="profile-stats">
+                  <div class="stat">
+                    <span class="stat-number" id="total-playlists">0</span>
+                    <span class="stat-label">Playlists</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-number" id="total-favorites">0</span>
+                    <span class="stat-label">Favorites</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-number" id="total-listening">0</span>
+                    <span class="stat-label">Hours</span>
+                  </div>
+                </div>
+              </div>
+              <button class="edit-profile-btn" onclick="editProfile()">
+                <i class="fas fa-edit"></i>
+                Edit Profile
+              </button>
+            </div>
+
+            <div class="profile-content">
+              <div class="profile-sections">
+                <div class="profile-section active" onclick="showProfileSection('recent')">
+                  <i class="fas fa-clock"></i>
+                  <span>Recent Activity</span>
+                </div>
+                <div class="profile-section" onclick="showProfileSection('settings')">
+                  <i class="fas fa-cog"></i>
+                  <span>Settings</span>
+                </div>
+                <div class="profile-section" onclick="showProfileSection('premium')">
+                  <i class="fas fa-crown"></i>
+                  <span>Premium</span>
+                </div>
+              </div>
+
+              <div class="profile-section-content">
+                <!-- Recent Activity -->
+                <div id="recent-section" class="section-content active">
+                  <h3>Recent Activity</h3>
+                  <div class="activity-list" id="activity-list">
+                    <div class="activity-item">
+                      <i class="fas fa-play"></i>
+                      <div class="activity-info">
+                        <span class="activity-title">Played "Song Name"</span>
+                        <span class="activity-time">2 hours ago</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Settings -->
+                <div id="settings-section" class="section-content">
+                  <h3>Settings</h3>
+                  <div class="settings-list">
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-title">Dark Mode</span>
+                        <span class="setting-desc">Toggle dark theme</span>
+                      </div>
+                      <label class="switch">
+                        <input type="checkbox" id="dark-mode-toggle" checked>
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-title">Auto-play</span>
+                        <span class="setting-desc">Automatically play next song</span>
+                      </div>
+                      <label class="switch">
+                        <input type="checkbox" id="autoplay-toggle" checked>
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                    <div class="setting-item">
+                      <div class="setting-info">
+                        <span class="setting-title">High Quality Audio</span>
+                        <span class="setting-desc">Stream in high quality</span>
+                      </div>
+                      <label class="switch">
+                        <input type="checkbox" id="hq-audio-toggle">
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <button class="logout-btn" onclick="logoutUser()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                  </button>
+                </div>
+
+                <!-- Premium -->
+                <div id="premium-section" class="section-content">
+                  <h3>Premium Features</h3>
+                  <div class="premium-card">
+                    <div class="premium-header">
+                      <i class="fas fa-crown"></i>
+                      <h4>QuickMusic Premium</h4>
+                    </div>
+                    <div class="premium-features">
+                      <div class="feature">
+                        <i class="fas fa-check"></i>
+                        <span>Ad-free listening</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check"></i>
+                        <span>Unlimited downloads</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check"></i>
+                        <span>High quality audio</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check"></i>
+                        <span>Exclusive content</span>
+                      </div>
+                    </div>
+                    <button class="premium-btn">
+                      <i class="fas fa-crown"></i>
+                      Upgrade to Premium
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bottom Navigation -->
@@ -1728,6 +2796,10 @@
       <div class="nav-item" onclick="switchPage('library')">
         <i class="fas fa-list-ul"></i>
         <span>Library</span>
+      </div>
+      <div class="nav-item" onclick="switchPage('profile')">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
       </div>
     </div>
   </div>
@@ -1880,6 +2952,183 @@
       if (page === 'library') {
         displayPlaylists();
         showPlaylistsList();
+      } else if (page === 'profile') {
+        checkUserLoginStatus();
+      }
+    }
+
+    // Profile Page Functions
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+    function checkUserLoginStatus() {
+      if (currentUser) {
+        document.getElementById('auth-section').style.display = 'none';
+        document.getElementById('user-profile-section').style.display = 'block';
+        updateUserProfile();
+      } else {
+        document.getElementById('auth-section').style.display = 'flex';
+        document.getElementById('user-profile-section').style.display = 'none';
+      }
+    }
+
+    function showLoginForm() {
+      document.getElementById('login-form').classList.add('active');
+      document.getElementById('register-form').classList.remove('active');
+      document.querySelectorAll('.auth-toggle-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector('.auth-toggle-btn:first-child').classList.add('active');
+      document.querySelector('.auth-toggle').classList.remove('register');
+    }
+
+    function showRegisterForm() {
+      document.getElementById('register-form').classList.add('active');
+      document.getElementById('login-form').classList.remove('active');
+      document.querySelectorAll('.auth-toggle-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector('.auth-toggle-btn:last-child').classList.add('active');
+      document.querySelector('.auth-toggle').classList.add('register');
+    }
+
+    function togglePassword(inputId, icon) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+
+    function loginUser(event) {
+      event.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const rememberMe = document.getElementById('remember-me').checked;
+
+      // Simulate login (in real app, you'd call your authentication API)
+      if (email && password) {
+        const userData = {
+          name: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
+          email: email,
+          avatar: `https://ui-avatars.com/api/?name=${email.split('@')[0]}&background=1DB954&color=fff&size=150`,
+          joinDate: new Date().toISOString(),
+          lastLogin: new Date().toISOString()
+        };
+
+        currentUser = userData;
+        localStorage.setItem('currentUser', JSON.stringify(userData));
+        
+        if (rememberMe) {
+          localStorage.setItem('rememberUser', 'true');
+        }
+
+        showDownloadMessage(`Welcome back, ${userData.name}!`);
+        checkUserLoginStatus();
+      } else {
+        showDownloadMessage('Please fill in all fields', true);
+      }
+    }
+
+    function registerUser(event) {
+      event.preventDefault();
+      const name = document.getElementById('register-name').value;
+      const email = document.getElementById('register-email').value;
+      const password = document.getElementById('register-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      const agreeTerms = document.getElementById('agree-terms').checked;
+
+      if (!name || !email || !password || !confirmPassword) {
+        showDownloadMessage('Please fill in all fields', true);
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showDownloadMessage('Passwords do not match', true);
+        return;
+      }
+
+      if (!agreeTerms) {
+        showDownloadMessage('Please agree to the Terms & Conditions', true);
+        return;
+      }
+
+      // Simulate registration (in real app, you'd call your registration API)
+      const userData = {
+        name: name,
+        email: email,
+        avatar: `https://ui-avatars.com/api/?name=${name}&background=1DB954&color=fff&size=150`,
+        joinDate: new Date().toISOString(),
+        lastLogin: new Date().toISOString()
+      };
+
+      currentUser = userData;
+      localStorage.setItem('currentUser', JSON.stringify(userData));
+
+      showDownloadMessage(`Welcome to QuickMusic, ${userData.name}!`);
+      checkUserLoginStatus();
+    }
+
+    function socialLogin(provider) {
+      // Simulate social login
+      const userData = {
+        name: `${provider.charAt(0).toUpperCase() + provider.slice(1)} User`,
+        email: `user@${provider}.com`,
+        avatar: `https://ui-avatars.com/api/?name=${provider}&background=1DB954&color=fff&size=150`,
+        joinDate: new Date().toISOString(),
+        lastLogin: new Date().toISOString(),
+        provider: provider
+      };
+
+      currentUser = userData;
+      localStorage.setItem('currentUser', JSON.stringify(userData));
+
+      showDownloadMessage(`Logged in with ${provider.charAt(0).toUpperCase() + provider.slice(1)}!`);
+      checkUserLoginStatus();
+    }
+
+    function updateUserProfile() {
+      if (!currentUser) return;
+
+      document.getElementById('user-avatar').src = currentUser.avatar;
+      document.getElementById('user-display-name').textContent = currentUser.name;
+      document.getElementById('user-email').textContent = currentUser.email;
+      
+      // Update stats
+      document.getElementById('total-playlists').textContent = playlists.length;
+      document.getElementById('total-favorites').textContent = favorites.length;
+      document.getElementById('total-listening').textContent = Math.floor(Math.random() * 100) + 1; // Random hours for demo
+    }
+
+    function showProfileSection(section) {
+      // Update active section
+      document.querySelectorAll('.profile-section').forEach(s => s.classList.remove('active'));
+      document.querySelector(`[onclick="showProfileSection('${section}')"]`).classList.add('active');
+
+      // Show section content
+      document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+      document.getElementById(`${section}-section`).classList.add('active');
+    }
+
+    function editProfile() {
+      // Simple profile editing (in real app, you'd have a proper form)
+      const newName = prompt('Enter your new name:', currentUser.name);
+      if (newName && newName.trim()) {
+        currentUser.name = newName.trim();
+        currentUser.avatar = `https://ui-avatars.com/api/?name=${newName.trim()}&background=1DB954&color=fff&size=150`;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        updateUserProfile();
+        showDownloadMessage('Profile updated successfully!');
+      }
+    }
+
+    function logoutUser() {
+      if (confirm('Are you sure you want to logout?')) {
+        currentUser = null;
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('rememberUser');
+        showDownloadMessage('Logged out successfully');
+        checkUserLoginStatus();
       }
     }
 
