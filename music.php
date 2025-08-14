@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1202,474 +1202,446 @@
       font-weight: 400;
     }
 
-    /* Smooth scrolling and performance optimizations */
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    * {
-      will-change: auto;
-      backface-visibility: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    
-    .app-container {
-      transform: translateZ(0);
-    }
-    
-    .main-content {
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    /* Enhanced responsive breakpoints */
-    @media (max-width: 480px) {
+    /* Enhanced Responsive Design */
+    @media (max-width: 1200px) {
       .container {
+        max-width: 100%;
         padding: 10px;
       }
-      
+      .songs-container {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 15px;
+      }
+      .playlists-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 992px) {
       .header {
         flex-direction: column;
         align-items: stretch;
         padding: 15px;
-        border-radius: 15px;
         gap: 15px;
       }
-      
+      .header-left {
+        justify-content: center;
+        margin-bottom: 0;
+      }
+      .search-bar {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .songs-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 12px;
+      }
+      .playlists-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 12px;
+        border-radius: 12px;
+      }
       .header-left {
         flex-direction: column;
         align-items: center;
-        gap: 15px;
-        text-align: center;
+        gap: 10px;
       }
-      
       .logo {
         width: 80px;
         height: 80px;
-        align-self: center;
       }
-      
       .logo-text {
         font-size: 10px;
       }
-      
       h1 {
         font-size: 18px;
         text-align: center;
-        line-height: 1.3;
       }
-      
       .search-bar {
         width: 100%;
         max-width: none;
-        margin-top: 10px;
       }
-      
       .search-bar input {
         padding: 12px 40px;
         font-size: 14px;
       }
-      
       .songs-container {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        padding: 5px;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 10px;
+        padding: 8px;
       }
-      
       .song-card {
-        padding: 12px;
-        margin: 0;
-        width: 100%;
-        max-width: none;
-        border-radius: 12px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 8px;
+        width: auto;
       }
-      
-      .song-card:hover {
-        transform: translateY(-2px);
-      }
-      
       .song-card img {
         width: 55px;
         height: 55px;
-        border-radius: 8px;
       }
-      
       .song-info h3 {
-        font-size: 14px;
-        margin-bottom: 4px;
+        font-size: 13px;
       }
-      
       .song-info p {
-        font-size: 11px;
-        margin-bottom: 4px;
+        font-size: 10px;
       }
-      
       .song-meta {
         font-size: 9px;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 3px;
       }
-      
-      .song-meta span {
-        background: rgba(29, 185, 84, 0.1);
-        padding: 2px 6px;
-        border-radius: 8px;
-        border: 1px solid rgba(29, 185, 84, 0.2);
-      }
-      
-      .download-btn, .favorite-btn {
-        width: 28px;
-        height: 28px;
-        font-size: 12px;
-      }
-      
-      .add-to-playlist-btn {
+      .download-btn, .favorite-btn, .add-to-playlist-btn {
         width: 28px;
         height: 28px;
       }
-      
+      .favorite-btn {
+        right: 36px;
+      }
+      .download-btn i, .favorite-btn i, .add-to-playlist-btn i {
+        font-size: 11px;
+      }
       .playlists-container {
-        grid-template-columns: 1fr;
-        gap: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
       }
-      
       .playlist-card {
         padding: 15px;
-        border-radius: 15px;
       }
-      
+      .playlist-card h4 {
+        font-size: 16px;
+      }
+      .playlist-card p {
+        font-size: 12px;
+      }
+      .create-playlist-btn {
+        padding: 12px 25px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 8px;
+      }
+      .header {
+        padding: 10px;
+        border-radius: 10px;
+      }
+      .header-left {
+        gap: 8px;
+      }
+      .logo {
+        width: 70px;
+        height: 70px;
+      }
+      h1 {
+        font-size: 16px;
+      }
+      .search-bar input {
+        padding: 10px 35px;
+        font-size: 13px;
+      }
+      .search-bar .search-icon, .search-bar .clear-icon {
+        font-size: 14px;
+      }
+      .songs-container {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .song-card {
+        padding: 10px;
+        width: auto;
+        max-width: 100%;
+      }
+      .song-card img {
+        width: 50px;
+        height: 50px;
+      }
+      .song-info h3 {
+        font-size: 12px;
+      }
+      .song-info p {
+        font-size: 9px;
+      }
+      .song-meta {
+        font-size: 8px;
+      }
+      .download-btn, .favorite-btn, .add-to-playlist-btn {
+        width: 24px;
+        height: 24px;
+      }
+      .favorite-btn {
+        right: 32px;
+      }
+      .download-btn i, .favorite-btn i, .add-to-playlist-btn i {
+        font-size: 10px;
+      }
+      .playlists-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .playlist-card {
+        padding: 12px;
+      }
+      .playlist-card h4 {
+        font-size: 14px;
+      }
+      .create-playlist-btn {
+        padding: 10px 20px;
+        font-size: 12px;
+        width: 100%;
+        justify-content: center;
+      }
       .now-playing {
         padding: 15px;
       }
-      
       .now-playing-img {
-        width: 220px;
-        height: 220px;
+        width: 200px;
+        height: 200px;
       }
-      
       .now-playing-info h3 {
         font-size: 20px;
-        margin-bottom: 8px;
       }
-      
       .now-playing-info p {
         font-size: 14px;
       }
-      
       .progress-container {
-        gap: 12px;
-        margin-bottom: 25px;
+        gap: 8px;
+        flex-wrap: wrap;
       }
-      
       .progress-bar {
-        height: 8px;
-        border-radius: 4px;
+        height: 6px;
+        min-width: 200px;
+        flex: 1;
       }
-      
+      #current-time, #total-duration {
+        font-size: 11px;
+        min-width: 35px;
+      }
       .now-playing-controls {
-        gap: 20px;
+        gap: 15px;
         flex-wrap: wrap;
         justify-content: center;
       }
-      
       .now-playing-controls button {
-        font-size: 22px;
-        padding: 10px;
-        min-width: 44px;
-        min-height: 44px;
+        font-size: 18px;
+        padding: 8px;
       }
-      
       .now-playing-controls .play-pause-btn {
         font-size: 28px;
-        width: 65px;
-        height: 65px;
+        width: 55px;
+        height: 55px;
       }
-      
       .now-playing-footer {
         flex-wrap: wrap;
         justify-content: center;
         gap: 15px;
       }
-      
       .now-playing-footer i {
-        font-size: 20px;
-        padding: 8px;
-        min-width: 36px;
-        min-height: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        font-size: 16px;
       }
-      
       #volume {
         width: 100px;
-        height: 8px;
+        min-width: 100px;
       }
-      
       .mini-player {
         padding: 8px 12px;
       }
-      
       .mini-player-img {
-        width: 45px;
-        height: 45px;
+        width: 40px;
+        height: 40px;
       }
-      
       .mini-player-info h4 {
-        font-size: 13px;
+        font-size: 12px;
       }
-      
       .mini-player-info p {
         font-size: 10px;
       }
-      
       .mini-player-controls {
-        gap: 12px;
+        gap: 10px;
       }
-      
       .mini-player-btn {
         font-size: 16px;
         padding: 6px;
-        min-width: 36px;
-        min-height: 36px;
       }
-      
       .bottom-nav {
         padding: 8px 0;
       }
-      
       .nav-item {
-        padding: 8px 15px;
-        min-width: 60px;
+        padding: 4px 15px;
       }
-      
       .nav-item i {
         font-size: 18px;
-        margin-bottom: 4px;
       }
-      
       .nav-item span {
         font-size: 10px;
       }
-      
       .modal-content {
-        margin: 20px;
-        width: calc(100% - 40px);
-        max-width: none;
+        width: 95%;
         padding: 20px;
       }
-      
-      .modal-input {
-        font-size: 16px;
-        padding: 12px;
-      }
-      
-      .modal-buttons {
-        flex-direction: column-reverse;
-        gap: 10px;
-      }
-      
-      .modal-btn {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px;
-      }
-    }
-
-    /* Tablet responsive design */
-    @media (min-width: 481px) and (max-width: 768px) {
-      .header {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        padding: 20px;
-      }
-      
-      .header-left {
-        gap: 20px;
-        align-items: center;
-      }
-      
-      .logo {
-        width: 100px;
-        height: 100px;
-      }
-      
-      h1 {
-        font-size: 22px;
-        text-align: center;
-      }
-      
-      .search-bar {
-        width: 100%;
-        max-width: 400px;
-      }
-      
-      .songs-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-      }
-      
-      .song-card {
-        padding: 12px;
-      }
-      
-      .playlists-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .now-playing-img {
-        width: 250px;
-        height: 250px;
-      }
-      
-      .now-playing-controls {
-        gap: 25px;
-      }
-    }
-
-    /* Desktop enhancements */
-    @media (min-width: 769px) {
-      .songs-container {
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 15px;
-      }
-      
-      .playlists-container {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      }
-      
-      .song-card:hover {
-        transform: translateY(-6px) scale(1.02);
-      }
-      
-      .playlist-card:hover {
-        transform: translateY(-10px) rotateX(2deg) rotateY(2deg);
-      }
-    }
-
-    /* Large desktop optimizations */
-    @media (min-width: 1200px) {
-      .container {
-        max-width: 1400px;
-        padding: 20px;
-      }
-      
-      .songs-container {
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 20px;
-      }
-      
-      .playlists-container {
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 30px;
-      }
-      
-      .song-card {
-        padding: 15px;
-      }
-    }
-
-    /* Smooth transitions for all interactive elements */
-    .song-card, .playlist-card, .nav-item, .modal-content,
-    .search-bar, .logo, .mini-player, .now-playing-controls button,
-    .download-btn, .favorite-btn, .add-to-playlist-btn {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Enhanced loading animation for better mobile performance */
-    .loader div {
-      animation: pulse 1.2s ease-in-out infinite;
-      animation-delay: calc(0.1s * var(--i));
-    }
-    
-    @keyframes pulse {
-      0%, 100% {
-        height: 12px;
-        opacity: 0.6;
-        transform: translateY(0);
-      }
-      50% {
-        height: 40px;
-        opacity: 1;
-        transform: translateY(-5px);
-        box-shadow: 0 0 10px rgba(29, 185, 84, 0.8), 0 0 20px rgba(138, 43, 226, 0.5);
-      }
-    }
-    
-    @media (max-width: 480px) {
       .loader {
         width: 60px;
-        height: 35px;
-        margin: 15px auto;
+        height: 40px;
       }
-      
       .loader div {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
       }
-      
       @keyframes pulse {
         0%, 100% {
-          height: 8px;
+          height: 10px;
           opacity: 0.6;
           transform: translateY(0);
         }
         50% {
-          height: 25px;
+          height: 30px;
           opacity: 1;
-          transform: translateY(-3px);
+          transform: translateY(-5px);
           box-shadow: 0 0 8px rgba(29, 185, 84, 0.8), 0 0 15px rgba(138, 43, 226, 0.5);
         }
       }
     }
 
-    /* Touch-friendly improvements */
-    @media (pointer: coarse) {
-      .song-card, .playlist-card, .nav-item, .mini-player-btn,
-      .now-playing-controls button, .download-btn, .favorite-btn,
-      .add-to-playlist-btn {
-        min-height: 44px;
-        min-width: 44px;
+    @media (max-width: 480px) {
+      .header {
+        padding: 8px;
       }
-      
-      .search-bar input {
-        min-height: 44px;
+      .logo {
+        width: 60px;
+        height: 60px;
       }
-      
-      .modal-btn, .create-playlist-btn, .back-btn {
-        min-height: 44px;
-        padding: 12px 20px;
+      h1 {
+        font-size: 14px;
+      }
+      .song-card {
+        padding: 8px;
+      }
+      .song-card img {
+        width: 45px;
+        height: 45px;
+      }
+      .now-playing {
+        padding: 10px;
+      }
+      .now-playing-img {
+        width: 180px;
+        height: 180px;
+      }
+      .now-playing-info h3 {
+        font-size: 18px;
+      }
+      .now-playing-controls .play-pause-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
+      .progress-bar {
+        min-width: 150px;
       }
     }
 
-    /* Reduced motion for accessibility */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+    @media (max-width: 360px) {
+      .container {
+        padding: 5px;
       }
-      
-      html {
-        scroll-behavior: auto;
+      .header {
+        padding: 6px;
+      }
+      h1 {
+        font-size: 13px;
+      }
+      .song-card {
+        padding: 6px;
+      }
+      .now-playing-img {
+        width: 160px;
+        height: 160px;
+      }
+      .progress-bar {
+        min-width: 120px;
       }
     }
 
-    /* High contrast mode support */
-    @media (prefers-contrast: high) {
-      .song-card, .playlist-card {
-        border: 2px solid #1DB954;
+    /* Large Desktop Screens */
+    @media (min-width: 1400px) {
+      .container {
+        max-width: 1400px;
       }
-      
-      .search-bar {
-        border: 2px solid #1DB954;
+      .songs-container {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
       }
-      
-      .download-btn, .favorite-btn, .add-to-playlist-btn {
-        border: 2px solid #1DB954;
+      .playlists-container {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+      }
+      .song-card {
+        padding: 12px;
+      }
+      .playlist-card {
+        padding: 25px;
+      }
+    }
+
+    /* Ultra-wide screens */
+    @media (min-width: 1920px) {
+      .container {
+        max-width: 1600px;
+      }
+      .songs-container {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+      }
+    }
+
+    /* Touch device optimizations */
+    @media (hover: none) and (pointer: coarse) {
+      .song-card:hover {
+        transform: none;
+        background: #1c1c1c;
+        box-shadow: none;
+      }
+      .song-card:active {
+        transform: translateY(-2px);
+        background: #252525;
+        box-shadow: 0 2px 8px rgba(29, 185, 84, 0.3);
+      }
+      .playlist-card:hover {
+        transform: none;
+        background: linear-gradient(135deg, #1c1c1c 0%, #2a2a2a 50%, #1e1e1e 100%);
+        box-shadow: none;
+      }
+      .playlist-card:active {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(29, 185, 84, 0.3);
+      }
+      .download-btn:hover, .favorite-btn:hover, .add-to-playlist-btn:hover {
+        transform: none;
+        box-shadow: none;
+      }
+      .download-btn:active, .favorite-btn:active, .add-to-playlist-btn:active {
+        transform: scale(0.95);
+        box-shadow: 0 0 5px rgba(29, 185, 84, 0.5);
+      }
+    }
+
+    /* High DPI screens */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .logo {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+      .song-card img, .now-playing-img, .mini-player-img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
       }
     }
   </style>
@@ -1683,7 +1655,7 @@
           <div class="header">
             <div class="header-left">
               <div class="logo-container">
-                <img class="logo" src="logo.png" alt="QuickMusic">
+                <img class="logo" src="Q.png" alt="QuickMusic">
                 <div class="logo-text">QuickMusic</div>
               </div>
               <h1>QuickMusic - Premium Music Experience</h1>
@@ -1715,7 +1687,7 @@
           <div class="header">
             <div class="header-left">
               <div class="logo-container">
-                <img class="logo" src="logo.png" alt="QuickMusic">
+                <img class="logo" src="Q.png" alt="QuickMusic">
                 <div class="logo-text">QuickMusic</div>
               </div>
               <h1>Your Library</h1>
@@ -1746,8 +1718,6 @@
         </div>
       </div>
     </div>
-    
-    
 
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
@@ -1845,6 +1815,7 @@
     </div>
   </div>
 
+  <footer>Made with 🎵 by QuickScript</footer>
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
     // YouTube IFrame Player API
@@ -2750,4 +2721,4 @@
     });
   </script>
 </body>
-</html>
+</html
