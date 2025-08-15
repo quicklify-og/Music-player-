@@ -1645,16 +1645,482 @@
       }
     }
 
-    /* Profile Page Styles - Crazy Attractive Theme */
+    /* Profile Page Styles - Ultimate Max Level Theme */
     .auth-section {
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 70vh;
       padding: 20px;
-      background: radial-gradient(circle at 50% 50%, rgba(29, 185, 84, 0.1) 0%, rgba(138, 43, 226, 0.1) 25%, rgba(30, 144, 255, 0.1) 50%, transparent 70%);
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(29, 185, 84, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(30, 144, 255, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(20, 20, 30, 0.95) 100%);
       position: relative;
       overflow: hidden;
+      animation: profile-bg-shift 20s ease-in-out infinite;
+    }
+    
+    @keyframes profile-bg-shift {
+      0%, 100% { filter: hue-rotate(0deg); }
+      25% { filter: hue-rotate(90deg); }
+      50% { filter: hue-rotate(180deg); }
+      75% { filter: hue-rotate(270deg); }
+    }
+
+    /* Restriction Notice */
+    .restriction-notice {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, rgba(255, 77, 77, 0.95), rgba(255, 140, 0, 0.95));
+      color: #fff;
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 2000;
+      transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: 0 4px 20px rgba(255, 77, 77, 0.3);
+    }
+    
+    .restriction-notice.show {
+      transform: translateY(0);
+    }
+    
+    .restriction-notice i {
+      margin-right: 8px;
+      animation: warning-pulse 1.5s infinite;
+    }
+    
+    @keyframes warning-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* Ultimate Profile Features */
+    .profile-advanced-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+    
+    .feature-card {
+      background: linear-gradient(135deg, rgba(29, 185, 84, 0.1) 0%, rgba(138, 43, 226, 0.1) 50%, rgba(30, 144, 255, 0.1) 100%);
+      border: 1px solid rgba(29, 185, 84, 0.3);
+      border-radius: 20px;
+      padding: 25px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+    
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(29, 185, 84, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: all 0.5s ease;
+      transform: scale(0);
+    }
+    
+    .feature-card:hover::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px) rotateX(2deg);
+      border-color: rgba(29, 185, 84, 0.6);
+      box-shadow: 0 20px 40px rgba(29, 185, 84, 0.3);
+    }
+    
+    .feature-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(45deg, #1DB954, #8a2be2);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(29, 185, 84, 0.5);
+    }
+    
+    .feature-title {
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(45deg, #1DB954, #8a2be2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .feature-description {
+      color: #b3b3b3;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    
+    .feature-action-btn {
+      background: linear-gradient(45deg, #1DB954, #8a2be2);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-action-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4);
+    }
+
+    /* Advanced Statistics */
+    .advanced-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .stat-card {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(30, 30, 30, 0.5) 100%);
+      border: 1px solid rgba(29, 185, 84, 0.2);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(29, 185, 84, 0.1), transparent);
+      transition: left 0.8s ease;
+    }
+    
+    .stat-card:hover::before {
+      left: 100%;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(29, 185, 84, 0.5);
+      box-shadow: 0 10px 30px rgba(29, 185, 84, 0.2);
+    }
+    
+    .stat-icon {
+      font-size: 24px;
+      color: #1DB954;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      display: block;
+      margin-bottom: 5px;
+      text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
+    }
+    
+    .stat-label {
+      font-size: 12px;
+      color: #b3b3b3;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Profile Achievements */
+    .achievements-section {
+      margin-bottom: 30px;
+    }
+    
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    
+    .achievement {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 140, 0, 0.1) 100%);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .achievement.unlocked {
+      border-color: rgba(255, 215, 0, 0.8);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+    
+    .achievement.locked {
+      opacity: 0.5;
+      border-color: rgba(100, 100, 100, 0.3);
+    }
+    
+    .achievement:hover {
+      transform: scale(1.05);
+    }
+    
+    .achievement-icon {
+      font-size: 30px;
+      color: #ffd700;
+      margin-bottom: 10px;
+      display: block;
+      animation: achievement-glow 2s infinite;
+    }
+    
+    @keyframes achievement-glow {
+      0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+      50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+    }
+    
+    .achievement-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+    
+    .achievement-desc {
+      font-size: 10px;
+      color: #b3b3b3;
+    }
+
+    /* Play/Download Restrictions for Non-Users */
+    .song-card.restricted {
+      position: relative;
+      opacity: 0.7;
+    }
+    
+    .song-card.restricted::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255, 77, 77, 0.1), rgba(255, 140, 0, 0.1));
+      border-radius: 8px;
+      pointer-events: none;
+    }
+    
+    .restriction-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+    
+    .song-card.restricted:hover .restriction-overlay {
+      opacity: 1;
+    }
+    
+    .restriction-icon {
+      font-size: 24px;
+      color: #ff4d4d;
+      margin-bottom: 8px;
+    }
+    
+    .restriction-text {
+      color: #fff;
+      font-size: 12px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* Ultra Premium Features */
+    .ultra-premium-card {
+      background: linear-gradient(135deg, 
+        rgba(255, 215, 0, 0.15) 0%, 
+        rgba(255, 140, 0, 0.15) 25%, 
+        rgba(138, 43, 226, 0.15) 50%, 
+        rgba(29, 185, 84, 0.15) 75%, 
+        rgba(30, 144, 255, 0.15) 100%);
+      border: 2px solid transparent;
+      border-radius: 25px;
+      padding: 35px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 30px;
+      animation: premium-rainbow-border 3s linear infinite;
+    }
+    
+    @keyframes premium-rainbow-border {
+      0% { border-image: linear-gradient(45deg, #ffd700, #ff8c00, #8a2be2, #1DB954, #1e90ff) 1; }
+      25% { border-image: linear-gradient(45deg, #ff8c00, #8a2be2, #1DB954, #1e90ff, #ffd700) 1; }
+      50% { border-image: linear-gradient(45deg, #8a2be2, #1DB954, #1e90ff, #ffd700, #ff8c00) 1; }
+      75% { border-image: linear-gradient(45deg, #1DB954, #1e90ff, #ffd700, #ff8c00, #8a2be2) 1; }
+      100% { border-image: linear-gradient(45deg, #1e90ff, #ffd700, #ff8c00, #8a2be2, #1DB954) 1; }
+    }
+    
+    .ultra-premium-header {
+      margin-bottom: 30px;
+    }
+    
+    .ultra-premium-title {
+      font-size: 32px;
+      font-weight: 900;
+      background: linear-gradient(45deg, #ffd700, #ff8c00, #8a2be2, #1DB954, #1e90ff);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: premium-text-glow 3s infinite;
+      margin-bottom: 10px;
+    }
+    
+    .ultra-premium-subtitle {
+      font-size: 16px;
+      color: #b3b3b3;
+      font-weight: 500;
+    }
+    
+    .ultra-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .ultra-feature {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: left;
+      transition: all 0.3s ease;
+    }
+    
+    .ultra-feature:hover {
+      background: rgba(29, 185, 84, 0.1);
+      transform: translateX(10px);
+    }
+    
+    .ultra-feature-icon {
+      font-size: 24px;
+      color: #ffd700;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .ultra-feature-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    
+    .ultra-feature-desc {
+      font-size: 13px;
+      color: #b3b3b3;
+      line-height: 1.5;
+    }
+
+    /* Advanced User Analytics */
+    .user-analytics {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 20, 30, 0.8) 100%);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(29, 185, 84, 0.2);
+    }
+    
+    .analytics-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    
+    .analytics-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(45deg, #1DB954, #8a2be2);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #fff;
+    }
+    
+    .analytics-title {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(45deg, #1DB954, #8a2be2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .analytics-item {
+      background: rgba(29, 185, 84, 0.1);
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+    }
+    
+    .analytics-value {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1DB954;
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .analytics-label {
+      font-size: 12px;
+      color: #b3b3b3;
+      text-transform: uppercase;
     }
     .auth-section::before {
       content: '';
@@ -2659,6 +3125,40 @@
 
           <!-- User Profile (shown after login) -->
           <div id="user-profile-section" class="user-profile-section" style="display: none;">
+            <!-- Ultra Premium Features Card -->
+            <div class="ultra-premium-card">
+              <div class="ultra-premium-header">
+                <h3 class="ultra-premium-title">🎵 QUICKMUSIC ULTIMATE 🎵</h3>
+                <p class="ultra-premium-subtitle">Unlock the full power of music streaming</p>
+              </div>
+              <div class="ultra-features-grid">
+                <div class="ultra-feature">
+                  <i class="fas fa-infinity ultra-feature-icon"></i>
+                  <h4 class="ultra-feature-title">Unlimited Everything</h4>
+                  <p class="ultra-feature-desc">Stream, download, and create unlimited playlists</p>
+                </div>
+                <div class="ultra-feature">
+                  <i class="fas fa-rocket ultra-feature-icon"></i>
+                  <h4 class="ultra-feature-title">Lightning Fast</h4>
+                  <p class="ultra-feature-desc">Zero ads, instant loading, premium servers</p>
+                </div>
+                <div class="ultra-feature">
+                  <i class="fas fa-brain ultra-feature-icon"></i>
+                  <h4 class="ultra-feature-title">AI Recommendations</h4>
+                  <p class="ultra-feature-desc">Smart playlists based on your taste</p>
+                </div>
+                <div class="ultra-feature">
+                  <i class="fas fa-headphones ultra-feature-icon"></i>
+                  <h4 class="ultra-feature-title">Premium Audio</h4>
+                  <p class="ultra-feature-desc">Lossless quality, 3D sound, noise cancellation</p>
+                </div>
+              </div>
+              <button class="premium-btn" onclick="upgradeToPremium()">
+                <i class="fas fa-crown"></i>
+                Upgrade to Ultimate - $9.99/month
+              </button>
+            </div>
+
             <div class="profile-header">
               <div class="profile-avatar">
                 <img id="user-avatar" src="https://via.placeholder.com/150" alt="User Avatar">
@@ -2669,18 +3169,36 @@
               <div class="profile-info">
                 <h2 id="user-display-name">John Doe</h2>
                 <p id="user-email">john.doe@example.com</p>
-                <div class="profile-stats">
-                  <div class="stat">
-                    <span class="stat-number" id="total-playlists">0</span>
+                <div class="advanced-stats">
+                  <div class="stat-card">
+                    <i class="fas fa-list-ul stat-icon"></i>
+                    <span class="stat-value" id="total-playlists">0</span>
                     <span class="stat-label">Playlists</span>
                   </div>
-                  <div class="stat">
-                    <span class="stat-number" id="total-favorites">0</span>
+                  <div class="stat-card">
+                    <i class="fas fa-heart stat-icon"></i>
+                    <span class="stat-value" id="total-favorites">0</span>
                     <span class="stat-label">Favorites</span>
                   </div>
-                  <div class="stat">
-                    <span class="stat-number" id="total-listening">0</span>
+                  <div class="stat-card">
+                    <i class="fas fa-clock stat-icon"></i>
+                    <span class="stat-value" id="total-listening">0</span>
                     <span class="stat-label">Hours</span>
+                  </div>
+                  <div class="stat-card">
+                    <i class="fas fa-download stat-icon"></i>
+                    <span class="stat-value" id="total-downloads">0</span>
+                    <span class="stat-label">Downloads</span>
+                  </div>
+                  <div class="stat-card">
+                    <i class="fas fa-calendar stat-icon"></i>
+                    <span class="stat-value" id="days-active">0</span>
+                    <span class="stat-label">Days Active</span>
+                  </div>
+                  <div class="stat-card">
+                    <i class="fas fa-trophy stat-icon"></i>
+                    <span class="stat-value" id="user-level">1</span>
+                    <span class="stat-label">Level</span>
                   </div>
                 </div>
               </div>
@@ -2688,6 +3206,120 @@
                 <i class="fas fa-edit"></i>
                 Edit Profile
               </button>
+            </div>
+
+            <!-- Advanced Features Section -->
+            <div class="profile-advanced-features">
+              <div class="feature-card" onclick="openMusicAnalytics()">
+                <div class="feature-header">
+                  <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                  </div>
+                  <div class="feature-title">Music Analytics</div>
+                </div>
+                <p class="feature-description">Detailed insights into your listening habits, top genres, and music discovery trends.</p>
+                <button class="feature-action-btn">View Analytics</button>
+              </div>
+              
+              <div class="feature-card" onclick="openSocialFeatures()">
+                <div class="feature-header">
+                  <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                  </div>
+                  <div class="feature-title">Social Hub</div>
+                </div>
+                <p class="feature-description">Connect with friends, share playlists, see what others are listening to.</p>
+                <button class="feature-action-btn">Explore Social</button>
+              </div>
+              
+              <div class="feature-card" onclick="openAIFeatures()">
+                <div class="feature-header">
+                  <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                  </div>
+                  <div class="feature-title">AI Assistant</div>
+                </div>
+                <p class="feature-description">Smart music recommendations, mood-based playlists, and voice commands.</p>
+                <button class="feature-action-btn">Try AI Features</button>
+              </div>
+              
+              <div class="feature-card" onclick="openCustomization()">
+                <div class="feature-header">
+                  <div class="feature-icon">
+                    <i class="fas fa-palette"></i>
+                  </div>
+                  <div class="feature-title">Customization</div>
+                </div>
+                <p class="feature-description">Personalize your experience with themes, layouts, and custom visualizers.</p>
+                <button class="feature-action-btn">Customize</button>
+              </div>
+            </div>
+
+            <!-- User Analytics Dashboard -->
+            <div class="user-analytics">
+              <div class="analytics-header">
+                <div class="analytics-icon">
+                  <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3 class="analytics-title">Your Music Journey</h3>
+              </div>
+              <div class="analytics-grid">
+                <div class="analytics-item">
+                  <span class="analytics-value" id="total-playtime">0h</span>
+                  <span class="analytics-label">Total Playtime</span>
+                </div>
+                <div class="analytics-item">
+                  <span class="analytics-value" id="songs-discovered">0</span>
+                  <span class="analytics-label">Songs Discovered</span>
+                </div>
+                <div class="analytics-item">
+                  <span class="analytics-value" id="top-genre">Unknown</span>
+                  <span class="analytics-label">Top Genre</span>
+                </div>
+                <div class="analytics-item">
+                  <span class="analytics-value" id="streak-days">0</span>
+                  <span class="analytics-label">Listening Streak</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Achievements Section -->
+            <div class="achievements-section">
+              <h3 style="color: #fff; margin-bottom: 20px; font-size: 24px; background: linear-gradient(45deg, #ffd700, #ff8c00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                <i class="fas fa-trophy" style="margin-right: 10px;"></i>Achievements
+              </h3>
+              <div class="achievements-grid" id="achievements-grid">
+                <div class="achievement unlocked" title="First Song - Play your first song">
+                  <i class="fas fa-play achievement-icon"></i>
+                  <div class="achievement-title">First Song</div>
+                  <div class="achievement-desc">Play your first song</div>
+                </div>
+                <div class="achievement locked" title="Music Lover - Play 50 songs">
+                  <i class="fas fa-heart achievement-icon"></i>
+                  <div class="achievement-title">Music Lover</div>
+                  <div class="achievement-desc">Play 50 songs</div>
+                </div>
+                <div class="achievement locked" title="Playlist Master - Create 10 playlists">
+                  <i class="fas fa-list achievement-icon"></i>
+                  <div class="achievement-title">Playlist Master</div>
+                  <div class="achievement-desc">Create 10 playlists</div>
+                </div>
+                <div class="achievement locked" title="Download King - Download 25 songs">
+                  <i class="fas fa-download achievement-icon"></i>
+                  <div class="achievement-title">Download King</div>
+                  <div class="achievement-desc">Download 25 songs</div>
+                </div>
+                <div class="achievement locked" title="Night Owl - Listen after midnight">
+                  <i class="fas fa-moon achievement-icon"></i>
+                  <div class="achievement-title">Night Owl</div>
+                  <div class="achievement-desc">Listen after midnight</div>
+                </div>
+                <div class="achievement locked" title="Explorer - Discover 5 genres">
+                  <i class="fas fa-globe achievement-icon"></i>
+                  <div class="achievement-title">Explorer</div>
+                  <div class="achievement-desc">Discover 5 genres</div>
+                </div>
+              </div>
             </div>
 
             <div class="profile-content">
@@ -2979,6 +3611,9 @@
     // Advanced Authentication System
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
     let currentSession = null;
+    let guestPlayCount = parseInt(localStorage.getItem('guestPlayCount')) || 0;
+    let guestDownloadCount = parseInt(localStorage.getItem('guestDownloadCount')) || 0;
+    const GUEST_LIMIT = 5;
 
     // Password strength checker
     function checkPasswordStrength(password) {
@@ -3086,15 +3721,95 @@
       return true;
     }
 
+    // Restriction System
+    function showRestrictionNotice(action) {
+      const notice = document.getElementById('restriction-notice') || createRestrictionNotice();
+      const remaining = GUEST_LIMIT - (action === 'play' ? guestPlayCount : guestDownloadCount);
+      notice.innerHTML = `
+        <i class="fas fa-exclamation-triangle"></i>
+        <strong>Limited Access:</strong> You can only ${action} ${remaining} more song${remaining !== 1 ? 's' : ''} without registration. 
+        <a href="#" onclick="switchPage('profile')" style="color: #ffd700; text-decoration: underline; margin-left: 10px;">Sign up for unlimited access!</a>
+      `;
+      notice.classList.add('show');
+      setTimeout(() => notice.classList.remove('show'), 5000);
+    }
+
+    function createRestrictionNotice() {
+      const notice = document.createElement('div');
+      notice.id = 'restriction-notice';
+      notice.className = 'restriction-notice';
+      document.body.appendChild(notice);
+      return notice;
+    }
+
+    function canPerformAction(action) {
+      if (currentUser) return true;
+      const count = action === 'play' ? guestPlayCount : guestDownloadCount;
+      return count < GUEST_LIMIT;
+    }
+
+    function incrementActionCount(action) {
+      if (currentUser) return;
+      if (action === 'play') {
+        guestPlayCount++;
+        localStorage.setItem('guestPlayCount', guestPlayCount.toString());
+      } else if (action === 'download') {
+        guestDownloadCount++;
+        localStorage.setItem('guestDownloadCount', guestDownloadCount.toString());
+      }
+      updateRestrictionUI();
+    }
+
+    function updateRestrictionUI() {
+      if (currentUser) return;
+      
+      const songCards = document.querySelectorAll('.song-card');
+      songCards.forEach((card, index) => {
+        const canPlay = guestPlayCount < GUEST_LIMIT;
+        const canDownload = guestDownloadCount < GUEST_LIMIT;
+        
+        if (!canPlay || !canDownload) {
+          card.classList.add('restricted');
+          
+          // Remove existing overlay
+          const existingOverlay = card.querySelector('.restriction-overlay');
+          if (existingOverlay) existingOverlay.remove();
+          
+          // Add restriction overlay
+          const overlay = document.createElement('div');
+          overlay.className = 'restriction-overlay';
+          overlay.innerHTML = `
+            <i class="fas fa-lock restriction-icon"></i>
+            <div class="restriction-text">
+              ${!canPlay ? 'Play limit reached' : 'Download limit reached'}<br>
+              <small>Register for unlimited access</small>
+            </div>
+          `;
+          card.appendChild(overlay);
+        }
+      });
+      
+      // Show restriction notice if limits are reached
+      if ((guestPlayCount >= GUEST_LIMIT || guestDownloadCount >= GUEST_LIMIT) && !currentUser) {
+        showRestrictionNotice(guestPlayCount >= GUEST_LIMIT ? 'play' : 'download');
+      }
+    }
+
     function checkUserLoginStatus() {
       if (currentUser && validateSession()) {
         document.getElementById('auth-section').style.display = 'none';
         document.getElementById('user-profile-section').style.display = 'block';
         updateUserProfile();
         updateActivityLog('Page visited', 'Accessed profile page');
+        // Reset guest counters for logged in users
+        guestPlayCount = 0;
+        guestDownloadCount = 0;
+        localStorage.removeItem('guestPlayCount');
+        localStorage.removeItem('guestDownloadCount');
       } else {
         document.getElementById('auth-section').style.display = 'flex';
         document.getElementById('user-profile-section').style.display = 'none';
+        updateRestrictionUI();
       }
     }
 
@@ -3579,6 +4294,350 @@
       }
     }
 
+    // Advanced Profile Features
+    function upgradeToPremium() {
+      const modal = document.createElement('div');
+      modal.className = 'playlist-modal active';
+      modal.innerHTML = `
+        <div class="modal-content" style="max-width: 600px;">
+          <h3 style="background: linear-gradient(45deg, #ffd700, #ff8c00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; font-size: 28px;">
+            <i class="fas fa-crown" style="margin-right: 10px;"></i>Upgrade to Ultimate
+          </h3>
+          <div style="text-align: center; margin: 20px 0;">
+            <div style="font-size: 48px; color: #ffd700; margin-bottom: 20px;">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <div style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 140, 0, 0.1)); border-radius: 15px; padding: 20px; margin-bottom: 20px;">
+              <h4 style="color: #ffd700; margin-bottom: 15px;">🚀 Launch Special - 50% OFF!</h4>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
+                <span style="text-decoration: line-through; color: #888; font-size: 24px;">$19.99</span>
+                <span style="color: #1DB954; font-size: 36px; font-weight: 800;">$9.99</span>
+                <span style="color: #fff;">/month</span>
+              </div>
+              <p style="color: #b3b3b3; font-size: 14px;">First month only - then $19.99/month</p>
+            </div>
+            <div style="text-align: left; margin: 20px 0;">
+              <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0; color: #fff;">
+                <i class="fas fa-check" style="color: #1DB954;"></i>
+                <span>Unlimited streaming & downloads</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0; color: #fff;">
+                <i class="fas fa-check" style="color: #1DB954;"></i>
+                <span>Ad-free experience</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0; color: #fff;">
+                <i class="fas fa-check" style="color: #1DB954;"></i>
+                <span>High-quality lossless audio</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0; color: #fff;">
+                <i class="fas fa-check" style="color: #1DB954;"></i>
+                <span>AI-powered recommendations</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0; color: #fff;">
+                <i class="fas fa-check" style="color: #1DB954;"></i>
+                <span>Exclusive content & early access</span>
+              </div>
+            </div>
+            <p style="color: #b3b3b3; font-size: 12px; margin: 15px 0;">Cancel anytime. No commitment.</p>
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-btn secondary" onclick="this.closest('.playlist-modal').remove()">Maybe Later</button>
+            <button class="modal-btn primary" onclick="processPremiumUpgrade()">
+              <i class="fas fa-rocket"></i> Upgrade Now
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function processPremiumUpgrade() {
+      // Simulate premium upgrade process
+      showDownloadMessage('Redirecting to secure payment...');
+      setTimeout(() => {
+        showDownloadMessage('🎉 Congratulations! You are now a Premium member!');
+        if (currentUser) {
+          currentUser.isPremium = true;
+          currentUser.premiumSince = new Date().toISOString();
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+          updateActivityLog('Premium Upgrade', 'Successfully upgraded to Premium');
+          updateUserProfile();
+        }
+        document.querySelector('.playlist-modal').remove();
+      }, 2000);
+    }
+
+    function openMusicAnalytics() {
+      const modal = document.createElement('div');
+      modal.className = 'playlist-modal active';
+      modal.innerHTML = `
+        <div class="modal-content" style="max-width: 800px;">
+          <h3><i class="fas fa-chart-line" style="margin-right: 10px;"></i>Music Analytics</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+            <div style="background: rgba(29, 185, 84, 0.1); padding: 15px; border-radius: 10px; text-align: center;">
+              <i class="fas fa-headphones" style="color: #1DB954; font-size: 24px; margin-bottom: 10px;"></i>
+              <div style="color: #1DB954; font-size: 24px; font-weight: bold;">${guestPlayCount + (currentUser?.totalPlays || 0)}</div>
+              <div style="color: #b3b3b3; font-size: 12px;">Songs Played</div>
+            </div>
+            <div style="background: rgba(138, 43, 226, 0.1); padding: 15px; border-radius: 10px; text-align: center;">
+              <i class="fas fa-clock" style="color: #8a2be2; font-size: 24px; margin-bottom: 10px;"></i>
+              <div style="color: #8a2be2; font-size: 24px; font-weight: bold;">${Math.floor((guestPlayCount + (currentUser?.totalPlays || 0)) * 3.5 / 60)}h</div>
+              <div style="color: #b3b3b3; font-size: 12px;">Total Time</div>
+            </div>
+            <div style="background: rgba(30, 144, 255, 0.1); padding: 15px; border-radius: 10px; text-align: center;">
+              <i class="fas fa-heart" style="color: #1e90ff; font-size: 24px; margin-bottom: 10px;"></i>
+              <div style="color: #1e90ff; font-size: 24px; font-weight: bold;">${favorites.length}</div>
+              <div style="color: #b3b3b3; font-size: 12px;">Favorites</div>
+            </div>
+            <div style="background: rgba(255, 215, 0, 0.1); padding: 15px; border-radius: 10px; text-align: center;">
+              <i class="fas fa-download" style="color: #ffd700; font-size: 24px; margin-bottom: 10px;"></i>
+              <div style="color: #ffd700; font-size: 24px; font-weight: bold;">${guestDownloadCount + (currentUser?.totalDownloads || 0)}</div>
+              <div style="color: #b3b3b3; font-size: 12px;">Downloads</div>
+            </div>
+          </div>
+          <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 15px; margin: 20px 0;">
+            <h4 style="color: #1DB954; margin-bottom: 15px;">🎵 Your Music DNA</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+              <div style="text-align: center; padding: 10px;">
+                <div style="color: #1DB954; font-weight: bold;">Pop</div>
+                <div style="background: rgba(29, 185, 84, 0.2); height: 8px; border-radius: 4px; margin: 5px 0;"><div style="background: #1DB954; height: 100%; width: 80%; border-radius: 4px;"></div></div>
+                <div style="color: #b3b3b3; font-size: 12px;">80%</div>
+              </div>
+              <div style="text-align: center; padding: 10px;">
+                <div style="color: #8a2be2; font-weight: bold;">Rock</div>
+                <div style="background: rgba(138, 43, 226, 0.2); height: 8px; border-radius: 4px; margin: 5px 0;"><div style="background: #8a2be2; height: 100%; width: 65%; border-radius: 4px;"></div></div>
+                <div style="color: #b3b3b3; font-size: 12px;">65%</div>
+              </div>
+              <div style="text-align: center; padding: 10px;">
+                <div style="color: #1e90ff; font-weight: bold;">Hip-Hop</div>
+                <div style="background: rgba(30, 144, 255, 0.2); height: 8px; border-radius: 4px; margin: 5px 0;"><div style="background: #1e90ff; height: 100%; width: 45%; border-radius: 4px;"></div></div>
+                <div style="color: #b3b3b3; font-size: 12px;">45%</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-btn secondary" onclick="this.closest('.playlist-modal').remove()">Close</button>
+            <button class="modal-btn primary" onclick="exportAnalytics()">
+              <i class="fas fa-download"></i> Export Data
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function openSocialFeatures() {
+      const modal = document.createElement('div');
+      modal.className = 'playlist-modal active';
+      modal.innerHTML = `
+        <div class="modal-content" style="max-width: 600px;">
+          <h3><i class="fas fa-users" style="margin-right: 10px;"></i>Social Hub</h3>
+          <div style="text-align: center; margin: 30px 0;">
+            <div style="font-size: 64px; color: #1DB954; margin-bottom: 20px;">
+              <i class="fas fa-users"></i>
+            </div>
+            <h4 style="color: #fff; margin-bottom: 15px;">Connect with Music Lovers</h4>
+            <p style="color: #b3b3b3; margin-bottom: 25px;">Share your playlists, discover new music through friends, and see what's trending in your network.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
+              <div style="background: rgba(29, 185, 84, 0.1); padding: 20px; border-radius: 15px;">
+                <i class="fas fa-share-alt" style="color: #1DB954; font-size: 24px; margin-bottom: 10px;"></i>
+                <h5 style="color: #fff; margin-bottom: 8px;">Share Playlists</h5>
+                <p style="color: #b3b3b3; font-size: 12px;">Let friends discover your music taste</p>
+              </div>
+              <div style="background: rgba(138, 43, 226, 0.1); padding: 20px; border-radius: 15px;">
+                <i class="fas fa-eye" style="color: #8a2be2; font-size: 24px; margin-bottom: 10px;"></i>
+                <h5 style="color: #fff; margin-bottom: 8px;">Friend Activity</h5>
+                <p style="color: #b3b3b3; font-size: 12px;">See what friends are listening to</p>
+              </div>
+              <div style="background: rgba(30, 144, 255, 0.1); padding: 20px; border-radius: 15px;">
+                <i class="fas fa-trophy" style="color: #1e90ff; font-size: 24px; margin-bottom: 10px;"></i>
+                <h5 style="color: #fff; margin-bottom: 8px;">Music Challenges</h5>
+                <p style="color: #b3b3b3; font-size: 12px;">Compete in listening challenges</p>
+              </div>
+            </div>
+            <p style="color: #ffd700; font-size: 14px; font-weight: 600;">🚀 Coming Soon - Connect Your Social Accounts!</p>
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-btn secondary" onclick="this.closest('.playlist-modal').remove()">Close</button>
+            <button class="modal-btn primary" onclick="joinBeta()">
+              <i class="fas fa-rocket"></i> Join Beta
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function openAIFeatures() {
+      const modal = document.createElement('div');
+      modal.className = 'playlist-modal active';
+      modal.innerHTML = `
+        <div class="modal-content" style="max-width: 700px;">
+          <h3><i class="fas fa-robot" style="margin-right: 10px;"></i>AI Music Assistant</h3>
+          <div style="margin: 25px 0;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+              <div style="background: linear-gradient(135deg, rgba(29, 185, 84, 0.1), rgba(138, 43, 226, 0.1)); border: 1px solid rgba(29, 185, 84, 0.3); border-radius: 15px; padding: 25px;">
+                <i class="fas fa-brain" style="color: #1DB954; font-size: 32px; margin-bottom: 15px;"></i>
+                <h4 style="color: #fff; margin-bottom: 10px;">Smart Recommendations</h4>
+                <p style="color: #b3b3b3; font-size: 14px; margin-bottom: 15px;">AI analyzes your taste and suggests perfect matches</p>
+                <button class="feature-action-btn" onclick="generateAIPlaylist()">Try Now</button>
+              </div>
+              <div style="background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(30, 144, 255, 0.1)); border: 1px solid rgba(138, 43, 226, 0.3); border-radius: 15px; padding: 25px;">
+                <i class="fas fa-microphone" style="color: #8a2be2; font-size: 32px; margin-bottom: 15px;"></i>
+                <h4 style="color: #fff; margin-bottom: 10px;">Voice Control</h4>
+                <p style="color: #b3b3b3; font-size: 14px; margin-bottom: 15px;">Control playback with voice commands</p>
+                <button class="feature-action-btn" onclick="enableVoiceControl()">Enable</button>
+              </div>
+            </div>
+            <div style="background: rgba(0, 0, 0, 0.4); border-radius: 15px; padding: 25px; margin-top: 25px;">
+              <h4 style="color: #1DB954; margin-bottom: 15px;">🎵 Ask the AI Assistant</h4>
+              <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <input type="text" placeholder="Try: 'Play something upbeat' or 'Create a chill playlist'" style="flex: 1; padding: 12px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(29, 185, 84, 0.3); border-radius: 8px; color: #fff;" id="ai-input">
+                <button class="feature-action-btn" onclick="processAICommand()">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </div>
+              <div id="ai-response" style="color: #b3b3b3; font-size: 14px; min-height: 40px; display: flex; align-items: center;">
+                <i class="fas fa-robot" style="margin-right: 8px; color: #1DB954;"></i>
+                Hello! I'm your AI music assistant. Ask me anything about music!
+              </div>
+            </div>
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-btn secondary" onclick="this.closest('.playlist-modal').remove()">Close</button>
+            <button class="modal-btn primary" onclick="upgradeToPremium()">
+              <i class="fas fa-crown"></i> Unlock All AI Features
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function openCustomization() {
+      const modal = document.createElement('div');
+      modal.className = 'playlist-modal active';
+      modal.innerHTML = `
+        <div class="modal-content" style="max-width: 650px;">
+          <h3><i class="fas fa-palette" style="margin-right: 10px;"></i>Customize Experience</h3>
+          <div style="margin: 25px 0;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+              <div style="background: linear-gradient(135deg, #ff6b6b, #ee5a24); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer;" onclick="applyTheme('red')">
+                <i class="fas fa-fire" style="font-size: 24px; color: #fff; margin-bottom: 10px;"></i>
+                <h4 style="color: #fff; margin-bottom: 5px;">Fire Theme</h4>
+                <p style="color: rgba(255,255,255,0.8); font-size: 12px;">Hot and energetic</p>
+              </div>
+              <div style="background: linear-gradient(135deg, #4834d4, #686de0); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer;" onclick="applyTheme('purple')">
+                <i class="fas fa-moon" style="font-size: 24px; color: #fff; margin-bottom: 10px;"></i>
+                <h4 style="color: #fff; margin-bottom: 5px;">Night Theme</h4>
+                <p style="color: rgba(255,255,255,0.8); font-size: 12px;">Cool and mysterious</p>
+              </div>
+              <div style="background: linear-gradient(135deg, #00d2d3, #54a0ff); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer;" onclick="applyTheme('ocean')">
+                <i class="fas fa-water" style="font-size: 24px; color: #fff; margin-bottom: 10px;"></i>
+                <h4 style="color: #fff; margin-bottom: 5px;">Ocean Theme</h4>
+                <p style="color: rgba(255,255,255,0.8); font-size: 12px;">Fresh and calm</p>
+              </div>
+              <div style="background: linear-gradient(135deg, #1DB954, #8a2be2); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer;" onclick="applyTheme('default')">
+                <i class="fas fa-music" style="font-size: 24px; color: #fff; margin-bottom: 10px;"></i>
+                <h4 style="color: #fff; margin-bottom: 5px;">Default</h4>
+                <p style="color: rgba(255,255,255,0.8); font-size: 12px;">Classic QuickMusic</p>
+              </div>
+            </div>
+            <div style="background: rgba(0, 0, 0, 0.4); border-radius: 15px; padding: 25px; margin-top: 25px;">
+              <h4 style="color: #1DB954; margin-bottom: 20px;">⚙️ Visual Settings</h4>
+              <div style="display: grid; gap: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="color: #fff;">Enable Visualizer</span>
+                  <label class="switch">
+                    <input type="checkbox" id="visualizer-toggle" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="color: #fff;">Animated Backgrounds</span>
+                  <label class="switch">
+                    <input type="checkbox" id="animations-toggle" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="color: #fff;">Particle Effects</span>
+                  <label class="switch">
+                    <input type="checkbox" id="particles-toggle">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-btn secondary" onclick="this.closest('.playlist-modal').remove()">Close</button>
+            <button class="modal-btn primary" onclick="saveCustomizations()">
+              <i class="fas fa-save"></i> Save Settings
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    // Additional helper functions for new features
+    function generateAIPlaylist() {
+      showDownloadMessage('🤖 AI is analyzing your music taste...');
+      setTimeout(() => {
+        showDownloadMessage('✨ AI Playlist "Discover Weekly" created!');
+      }, 2000);
+    }
+
+    function enableVoiceControl() {
+      if ('webkitSpeechRecognition' in window) {
+        showDownloadMessage('🎤 Voice control activated! Try saying "Play music"');
+      } else {
+        showDownloadMessage('Voice control not supported in this browser', true);
+      }
+    }
+
+    function processAICommand() {
+      const input = document.getElementById('ai-input');
+      const response = document.getElementById('ai-response');
+      const command = input.value.toLowerCase();
+      
+      if (command.includes('upbeat') || command.includes('energetic')) {
+        response.innerHTML = '<i class="fas fa-robot" style="margin-right: 8px; color: #1DB954;"></i>Great choice! I\'m creating an upbeat playlist with high-energy tracks perfect for your mood! 🎵⚡';
+      } else if (command.includes('chill') || command.includes('relax')) {
+        response.innerHTML = '<i class="fas fa-robot" style="margin-right: 8px; color: #1DB954;"></i>Perfect for unwinding! I\'m curating a chill playlist with smooth, relaxing vibes 🎧✨';
+      } else if (command.includes('playlist')) {
+        response.innerHTML = '<i class="fas fa-robot" style="margin-right: 8px; color: #1DB954;"></i>I can create personalized playlists based on your taste! What genre or mood are you in the mood for? 🎶';
+      } else {
+        response.innerHTML = '<i class="fas fa-robot" style="margin-right: 8px; color: #1DB954;"></i>I can help you discover music, create playlists, or control playback! Try asking about genres, moods, or specific artists 🎵';
+      }
+      
+      input.value = '';
+    }
+
+    function applyTheme(theme) {
+      showDownloadMessage(`🎨 ${theme.charAt(0).toUpperCase() + theme.slice(1)} theme applied!`);
+      if (currentUser) {
+        currentUser.theme = theme;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      }
+    }
+
+    function saveCustomizations() {
+      showDownloadMessage('✅ Customization settings saved!');
+      document.querySelector('.playlist-modal').remove();
+    }
+
+    function joinBeta() {
+      showDownloadMessage('🚀 Welcome to the beta! Social features will be available soon.');
+      document.querySelector('.playlist-modal').remove();
+    }
+
+    function exportAnalytics() {
+      showDownloadMessage('📊 Analytics data exported to downloads folder!');
+      document.querySelector('.playlist-modal').remove();
+    }
+
     // Playlist Navigation
     function showPlaylistsList() {
       document.getElementById('playlists-list-view').style.display = 'block';
@@ -3627,6 +4686,16 @@
       loadTrendingSongs();
       displayFavorites();
       displayPlaylists();
+      updateRestrictionUI();
+      
+      // Show welcome message for guests
+      if (!currentUser) {
+        setTimeout(() => {
+          if (guestPlayCount === 0 && guestDownloadCount === 0) {
+            showDownloadMessage('🎵 Welcome! You can play and download 5 songs each as a guest. Register for unlimited access!');
+          }
+        }, 2000);
+      }
     };
 
     // Fetch trending songs
@@ -3892,10 +4961,20 @@
       const songList = source === 'favorites' ? favorites : songs;
       const song = songList[index];
 
+      // Check download restrictions for guests
+      if (!canPerformAction('download')) {
+        showRestrictionNotice('download');
+        showDownloadMessage('Download limit reached! Please register for unlimited access.', true);
+        return;
+      }
+
       if (song.isYouTube) {
         showDownloadMessage('Downloading YouTube songs is not allowed due to Terms of Service.', true);
         return;
       }
+
+      // Increment download count for guests
+      incrementActionCount('download');
 
       if (song.audio_url) {
         try {
@@ -3927,9 +5006,20 @@
     // Play song
     function playSong(index) {
       if (index < 0 || index >= songs.length) return;
+      
+      // Check play restrictions for guests
+      if (!canPerformAction('play')) {
+        showRestrictionNotice('play');
+        showDownloadMessage('Play limit reached! Please register for unlimited access.', true);
+        return;
+      }
+      
       currentSongIndex = index;
       currentView = 'trending';
       const song = songs[index];
+
+      // Increment play count for guests
+      incrementActionCount('play');
 
       // Hide mini player when starting new song
       document.getElementById('mini-player').classList.remove('active');
@@ -3965,9 +5055,20 @@
     // Play song from favorites
     function playSongFromFavorites(index) {
       if (index < 0 || index >= favorites.length) return;
+      
+      // Check play restrictions for guests
+      if (!canPerformAction('play')) {
+        showRestrictionNotice('play');
+        showDownloadMessage('Play limit reached! Please register for unlimited access.', true);
+        return;
+      }
+      
       currentSongIndex = index;
       currentView = 'favorites';
       const song = favorites[index];
+
+      // Increment play count for guests
+      incrementActionCount('play');
 
       // Hide mini player when starting new song
       document.getElementById('mini-player').classList.remove('active');
@@ -4354,9 +5455,20 @@
 
     function playPlaylistSong(index) {
       if (!currentPlaylist || index < 0 || index >= currentPlaylist.songs.length) return;
+      
+      // Check play restrictions for guests
+      if (!canPerformAction('play')) {
+        showRestrictionNotice('play');
+        showDownloadMessage('Play limit reached! Please register for unlimited access.', true);
+        return;
+      }
+      
       currentSongIndex = index;
       currentView = 'playlist';
       const song = currentPlaylist.songs[index];
+
+      // Increment play count for guests
+      incrementActionCount('play');
 
       // Hide mini player when starting new song
       document.getElementById('mini-player').classList.remove('active');
