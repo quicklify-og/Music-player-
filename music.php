@@ -510,7 +510,7 @@
       box-shadow: 
         0 15px 35px rgba(29, 185, 84, 0.6),
         0 8px 25px rgba(138, 43, 226, 0.5),
-        0 0 50px rgba(30, 144, 255, 0.3);
+        0 0 60px rgba(30, 144, 255, 0.3);
       text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
     }
     .create-playlist-btn i {
@@ -1213,7 +1213,7 @@
         gap: 15px;
       }
       .playlists-container {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
       }
     }
@@ -1409,35 +1409,13 @@
       .now-playing-info h3 {
         font-size: 20px;
       }
-      .now-playing-info p {
-        font-size: 14px;
-      }
-      .progress-container {
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-      .progress-bar {
-        height: 6px;
-        min-width: 200px;
-        flex: 1;
-      }
-      #current-time, #total-duration {
-        font-size: 11px;
-        min-width: 35px;
-      }
-      .now-playing-controls {
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .now-playing-controls button {
-        font-size: 18px;
-        padding: 8px;
-      }
       .now-playing-controls .play-pause-btn {
-        font-size: 28px;
         width: 55px;
         height: 55px;
+        font-size: 28px;
+      }
+      .progress-bar {
+        min-width: 200px;
       }
       .now-playing-footer {
         flex-wrap: wrap;
@@ -1661,7 +1639,7 @@
       overflow: hidden;
       animation: profile-bg-shift 20s ease-in-out infinite;
     }
-    
+
     @keyframes profile-bg-shift {
       0%, 100% { filter: hue-rotate(0deg); }
       25% { filter: hue-rotate(90deg); }
@@ -1686,16 +1664,16 @@
       transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       box-shadow: 0 4px 20px rgba(255, 77, 77, 0.3);
     }
-    
+
     .restriction-notice.show {
       transform: translateY(0);
     }
-    
+
     .restriction-notice i {
       margin-right: 8px;
       animation: warning-pulse 1.5s infinite;
     }
-    
+
     @keyframes warning-pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.2); }
@@ -1708,7 +1686,7 @@
       gap: 25px;
       margin-bottom: 30px;
     }
-    
+
     .feature-card {
       background: linear-gradient(135deg, rgba(29, 185, 84, 0.1) 0%, rgba(138, 43, 226, 0.1) 50%, rgba(30, 144, 255, 0.1) 100%);
       border: 1px solid rgba(29, 185, 84, 0.3);
@@ -1719,7 +1697,7 @@
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       cursor: pointer;
     }
-    
+
     .feature-card::before {
       content: '';
       position: absolute;
@@ -1732,25 +1710,25 @@
       transition: all 0.5s ease;
       transform: scale(0);
     }
-    
+
     .feature-card:hover::before {
       opacity: 1;
       transform: scale(1);
     }
-    
+
     .feature-card:hover {
       transform: translateY(-10px) rotateX(2deg);
       border-color: rgba(29, 185, 84, 0.6);
       box-shadow: 0 20px 40px rgba(29, 185, 84, 0.3);
     }
-    
+
     .feature-header {
       display: flex;
       align-items: center;
       gap: 15px;
       margin-bottom: 15px;
     }
-    
+
     .feature-icon {
       width: 50px;
       height: 50px;
@@ -1763,7 +1741,7 @@
       color: #fff;
       box-shadow: 0 0 20px rgba(29, 185, 84, 0.5);
     }
-    
+
     .feature-title {
       font-size: 18px;
       font-weight: 700;
@@ -1771,14 +1749,14 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    
+
     .feature-description {
       color: #b3b3b3;
       font-size: 14px;
       line-height: 1.6;
       margin-bottom: 15px;
     }
-    
+
     .feature-action-btn {
       background: linear-gradient(45deg, #1DB954, #8a2be2);
       border: none;
@@ -1790,7 +1768,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    
+
     .feature-action-btn:hover {
       transform: scale(1.05);
       box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4);
@@ -1803,7 +1781,7 @@
       gap: 20px;
       margin-bottom: 30px;
     }
-    
+
     .stat-card {
       background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(30, 30, 30, 0.5) 100%);
       border: 1px solid rgba(29, 185, 84, 0.2);
@@ -1814,7 +1792,7 @@
       overflow: hidden;
       transition: all 0.3s ease;
     }
-    
+
     .stat-card::before {
       content: '';
       position: absolute;
@@ -1825,24 +1803,24 @@
       background: linear-gradient(90deg, transparent, rgba(29, 185, 84, 0.1), transparent);
       transition: left 0.8s ease;
     }
-    
+
     .stat-card:hover::before {
       left: 100%;
     }
-    
+
     .stat-card:hover {
       transform: translateY(-5px);
       border-color: rgba(29, 185, 84, 0.5);
       box-shadow: 0 10px 30px rgba(29, 185, 84, 0.2);
     }
-    
+
     .stat-icon {
       font-size: 24px;
       color: #1DB954;
       margin-bottom: 10px;
       display: block;
     }
-    
+
     .stat-value {
       font-size: 28px;
       font-weight: 800;
@@ -1851,7 +1829,7 @@
       margin-bottom: 5px;
       text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
     }
-    
+
     .stat-label {
       font-size: 12px;
       color: #b3b3b3;
@@ -1863,13 +1841,13 @@
     .achievements-section {
       margin-bottom: 30px;
     }
-    
+
     .achievements-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 15px;
     }
-    
+
     .achievement {
       background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 140, 0, 0.1) 100%);
       border: 2px solid rgba(255, 215, 0, 0.3);
@@ -1880,21 +1858,21 @@
       transition: all 0.3s ease;
       cursor: pointer;
     }
-    
+
     .achievement.unlocked {
       border-color: rgba(255, 215, 0, 0.8);
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
     }
-    
+
     .achievement.locked {
       opacity: 0.5;
       border-color: rgba(100, 100, 100, 0.3);
     }
-    
+
     .achievement:hover {
       transform: scale(1.05);
     }
-    
+
     .achievement-icon {
       font-size: 30px;
       color: #ffd700;
@@ -1902,19 +1880,19 @@
       display: block;
       animation: achievement-glow 2s infinite;
     }
-    
+
     @keyframes achievement-glow {
       0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
       50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
     }
-    
+
     .achievement-title {
       font-size: 12px;
       font-weight: 600;
       color: #fff;
       margin-bottom: 5px;
     }
-    
+
     .achievement-desc {
       font-size: 10px;
       color: #b3b3b3;
@@ -1925,7 +1903,7 @@
       position: relative;
       opacity: 0.7;
     }
-    
+
     .song-card.restricted::after {
       content: '';
       position: absolute;
@@ -1937,7 +1915,7 @@
       border-radius: 8px;
       pointer-events: none;
     }
-    
+
     .restriction-overlay {
       position: absolute;
       top: 0;
@@ -1955,17 +1933,17 @@
       transition: opacity 0.3s ease;
       z-index: 10;
     }
-    
+
     .song-card.restricted:hover .restriction-overlay {
       opacity: 1;
     }
-    
+
     .restriction-icon {
       font-size: 24px;
       color: #ff4d4d;
       margin-bottom: 8px;
     }
-    
+
     .restriction-text {
       color: #fff;
       font-size: 12px;
@@ -1990,7 +1968,7 @@
       margin-bottom: 30px;
       animation: premium-rainbow-border 3s linear infinite;
     }
-    
+
     @keyframes premium-rainbow-border {
       0% { border-image: linear-gradient(45deg, #ffd700, #ff8c00, #8a2be2, #1DB954, #1e90ff) 1; }
       25% { border-image: linear-gradient(45deg, #ff8c00, #8a2be2, #1DB954, #1e90ff, #ffd700) 1; }
@@ -1998,11 +1976,11 @@
       75% { border-image: linear-gradient(45deg, #1DB954, #1e90ff, #ffd700, #ff8c00, #8a2be2) 1; }
       100% { border-image: linear-gradient(45deg, #1e90ff, #ffd700, #ff8c00, #8a2be2, #1DB954) 1; }
     }
-    
+
     .ultra-premium-header {
       margin-bottom: 30px;
     }
-    
+
     .ultra-premium-title {
       font-size: 32px;
       font-weight: 900;
@@ -2013,20 +1991,20 @@
       animation: premium-text-glow 3s infinite;
       margin-bottom: 10px;
     }
-    
+
     .ultra-premium-subtitle {
       font-size: 16px;
       color: #b3b3b3;
       font-weight: 500;
     }
-    
+
     .ultra-features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
       margin-bottom: 30px;
     }
-    
+
     .ultra-feature {
       background: rgba(0, 0, 0, 0.3);
       border-radius: 15px;
@@ -2034,33 +2012,33 @@
       text-align: left;
       transition: all 0.3s ease;
     }
-    
+
     .ultra-feature:hover {
       background: rgba(29, 185, 84, 0.1);
       transform: translateX(10px);
     }
-    
+
     .ultra-feature-icon {
       font-size: 24px;
       color: #ffd700;
       margin-bottom: 10px;
       display: block;
     }
-    
+
     .ultra-feature-title {
       font-size: 16px;
       font-weight: 700;
       color: #fff;
       margin-bottom: 8px;
     }
-    
+
     .ultra-feature-desc {
       font-size: 13px;
       color: #b3b3b3;
       line-height: 1.5;
     }
 
-    /* Advanced User Analytics */
+    /* User Analytics Dashboard */
     .user-analytics {
       background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 20, 30, 0.8) 100%);
       border-radius: 20px;
@@ -2068,14 +2046,14 @@
       margin-bottom: 30px;
       border: 1px solid rgba(29, 185, 84, 0.2);
     }
-    
+
     .analytics-header {
       display: flex;
       align-items: center;
       gap: 15px;
       margin-bottom: 25px;
     }
-    
+
     .analytics-icon {
       width: 50px;
       height: 50px;
@@ -2087,7 +2065,7 @@
       font-size: 20px;
       color: #fff;
     }
-    
+
     .analytics-title {
       font-size: 24px;
       font-weight: 700;
@@ -2095,20 +2073,20 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    
+
     .analytics-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
     }
-    
+
     .analytics-item {
       background: rgba(29, 185, 84, 0.1);
       border-radius: 10px;
       padding: 15px;
       text-align: center;
     }
-    
+
     .analytics-value {
       font-size: 24px;
       font-weight: 800;
@@ -2116,7 +2094,7 @@
       display: block;
       margin-bottom: 5px;
     }
-    
+
     .analytics-label {
       font-size: 12px;
       color: #b3b3b3;
@@ -2926,6 +2904,71 @@
         font-size: 22px;
       }
     }
+
+    /* Mobile-First Profile Page Responsive Design */
+    .auth-section {
+      min-height: 100vh;
+      padding: 10px;
+    }
+
+    .user-profile-section {
+      padding: 10px;
+      min-height: 100vh;
+    }
+
+    /* Real-time feature indicators */
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.7); }
+      70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(29, 185, 84, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(29, 185, 84, 0); }
+    }
+
+    @keyframes progress-fill {
+      0% { width: 0%; }
+      100% { width: var(--target-width, 50%); }
+    }
+
+    .live-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #ff4d4d;
+      border-radius: 50%;
+      margin-left: 5px;
+      animation: pulse 1s infinite;
+    }
+
+    /* Enhanced mobile compatibility */
+    @media (max-width: 1200px) {
+      .container {
+        max-width: 100%;
+        padding: 10px;
+      }
+      .songs-container {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 15px;
+      }
+      .playlists-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      /* Profile page mobile optimization */
+      .profile-advanced-features {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .advanced-stats {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+      }
+
+      .ultra-features-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -3220,7 +3263,7 @@
                 <p class="feature-description">Detailed insights into your listening habits, top genres, and music discovery trends.</p>
                 <button class="feature-action-btn">View Analytics</button>
               </div>
-              
+
               <div class="feature-card" onclick="openSocialFeatures()">
                 <div class="feature-header">
                   <div class="feature-icon">
@@ -3231,7 +3274,7 @@
                 <p class="feature-description">Connect with friends, share playlists, see what others are listening to.</p>
                 <button class="feature-action-btn">Explore Social</button>
               </div>
-              
+
               <div class="feature-card" onclick="openAIFeatures()">
                 <div class="feature-header">
                   <div class="feature-icon">
@@ -3242,7 +3285,7 @@
                 <p class="feature-description">Smart music recommendations, mood-based playlists, and voice commands.</p>
                 <button class="feature-action-btn">Try AI Features</button>
               </div>
-              
+
               <div class="feature-card" onclick="openCustomization()">
                 <div class="feature-header">
                   <div class="feature-icon">
@@ -3420,7 +3463,7 @@
                         <span>Exclusive content</span>
                       </div>
                     </div>
-                    <button class="premium-btn">
+                    <button class="premium-btn" onclick="upgradeToPremium()">
                       <i class="fas fa-crown"></i>
                       Upgrade to Premium
                     </button>
@@ -3622,7 +3665,7 @@
       const hasLower = /[a-z]/.test(password);
       const hasNumber = /\d/.test(password);
       const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-      
+
       const strength = [minLength, hasUpper, hasLower, hasNumber, hasSpecial].filter(Boolean).length;
       return { strength, minLength, hasUpper, hasLower, hasNumber, hasSpecial };
     }
@@ -3653,12 +3696,12 @@
     function checkRateLimit(email) {
       const now = Date.now();
       const attempts = loginAttempts[email] || { count: 0, lastAttempt: 0 };
-      
+
       // Reset if last attempt was more than 15 minutes ago
       if (now - attempts.lastAttempt > 15 * 60 * 1000) {
         attempts.count = 0;
       }
-      
+
       return attempts.count < 5;
     }
 
@@ -3668,14 +3711,14 @@
       if (!loginAttempts[email]) {
         loginAttempts[email] = { count: 0, lastAttempt: 0 };
       }
-      
+
       if (success) {
         delete loginAttempts[email];
       } else {
         loginAttempts[email].count++;
         loginAttempts[email].lastAttempt = now;
       }
-      
+
       localStorage.setItem('loginAttempts', JSON.stringify(loginAttempts));
     }
 
@@ -3690,13 +3733,13 @@
         userAgent: navigator.userAgent,
         ipAddress: 'simulated_ip'
       };
-      
+
       localStorage.setItem('currentSession', JSON.stringify(sessionData));
       localStorage.setItem('sessionData', JSON.stringify({
         ...JSON.parse(localStorage.getItem('sessionData') || '{}'),
         [sessionToken]: sessionData
       }));
-      
+
       return sessionData;
     }
 
@@ -3704,17 +3747,17 @@
     function validateSession() {
       const session = JSON.parse(localStorage.getItem('currentSession'));
       if (!session) return false;
-      
+
       const now = Date.now();
       const sessionAge = now - session.createdAt;
       const inactivityTime = now - session.lastActivity;
-      
+
       // Session expires after 7 days or 2 hours of inactivity
       if (sessionAge > 7 * 24 * 60 * 60 * 1000 || inactivityTime > 2 * 60 * 60 * 1000) {
         logoutUser();
         return false;
       }
-      
+
       // Update last activity
       session.lastActivity = now;
       localStorage.setItem('currentSession', JSON.stringify(session));
@@ -3762,19 +3805,19 @@
 
     function updateRestrictionUI() {
       if (currentUser) return;
-      
+
       const songCards = document.querySelectorAll('.song-card');
       songCards.forEach((card, index) => {
         const canPlay = guestPlayCount < GUEST_LIMIT;
         const canDownload = guestDownloadCount < GUEST_LIMIT;
-        
+
         if (!canPlay || !canDownload) {
           card.classList.add('restricted');
-          
+
           // Remove existing overlay
           const existingOverlay = card.querySelector('.restriction-overlay');
           if (existingOverlay) existingOverlay.remove();
-          
+
           // Add restriction overlay
           const overlay = document.createElement('div');
           overlay.className = 'restriction-overlay';
@@ -3788,7 +3831,7 @@
           card.appendChild(overlay);
         }
       });
-      
+
       // Show restriction notice if limits are reached
       if ((guestPlayCount >= GUEST_LIMIT || guestDownloadCount >= GUEST_LIMIT) && !currentUser) {
         showRestrictionNotice(guestPlayCount >= GUEST_LIMIT ? 'play' : 'download');
@@ -3819,7 +3862,7 @@
       document.querySelectorAll('.auth-toggle-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelector('.auth-toggle-btn:first-child').classList.add('active');
       document.querySelector('.auth-toggle').classList.remove('register');
-      
+
       // Clear any previous error messages
       clearAuthErrors();
     }
@@ -3830,7 +3873,7 @@
       document.querySelectorAll('.auth-toggle-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelector('.auth-toggle-btn:last-child').classList.add('active');
       document.querySelector('.auth-toggle').classList.add('register');
-      
+
       // Clear any previous error messages
       clearAuthErrors();
     }
@@ -3846,11 +3889,11 @@
       const field = document.getElementById(fieldId);
       const group = field.closest('.form-group');
       group.classList.add('error');
-      
+
       // Remove existing error
       const existingError = group.querySelector('.field-error');
       if (existingError) existingError.remove();
-      
+
       // Add new error
       const error = document.createElement('div');
       error.className = 'field-error';
@@ -3875,7 +3918,7 @@
     function loginUser(event) {
       event.preventDefault();
       clearAuthErrors();
-      
+
       const email = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-password').value;
       const rememberMe = document.getElementById('remember-me').checked;
@@ -3924,13 +3967,13 @@
       recordLoginAttempt(email, true);
       user.lastLogin = new Date().toISOString();
       user.loginCount = (user.loginCount || 0) + 1;
-      
+
       currentUser = user;
       localStorage.setItem('currentUser', JSON.stringify(user));
       localStorage.setItem('userDatabase', JSON.stringify(userDatabase));
-      
+
       createUserSession(user);
-      
+
       if (rememberMe) {
         localStorage.setItem('rememberUser', 'true');
       }
@@ -3943,7 +3986,7 @@
     function registerUser(event) {
       event.preventDefault();
       clearAuthErrors();
-      
+
       const name = document.getElementById('register-name').value.trim();
       const email = document.getElementById('register-email').value.trim();
       const password = document.getElementById('register-password').value;
@@ -4023,7 +4066,7 @@
 
       currentUser = userData;
       localStorage.setItem('currentUser', JSON.stringify(userData));
-      
+
       createUserSession(userData);
 
       showDownloadMessage(`Welcome to QuickMusic, ${userData.name}!`);
@@ -4034,14 +4077,14 @@
     async function socialLogin(provider) {
       // Simulate OAuth flow with realistic delay
       showDownloadMessage(`Connecting to ${provider.charAt(0).toUpperCase() + provider.slice(1)}...`);
-      
+
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       const providerEmails = {
         google: '@gmail.com',
         spotify: '@spotify.user'
       };
-      
+
       const email = `user${Date.now()}${providerEmails[provider]}`;
       const userData = {
         id: 'user_' + Date.now(),
@@ -4066,7 +4109,7 @@
 
       currentUser = userData;
       localStorage.setItem('currentUser', JSON.stringify(userData));
-      
+
       createUserSession(userData);
 
       showDownloadMessage(`Successfully logged in with ${provider.charAt(0).toUpperCase() + provider.slice(1)}!`);
@@ -4077,7 +4120,7 @@
     // Activity logging
     function updateActivityLog(action, details) {
       if (!currentUser) return;
-      
+
       const activities = JSON.parse(localStorage.getItem(`activities_${currentUser.id}`)) || [];
       activities.unshift({
         id: Date.now(),
@@ -4086,27 +4129,27 @@
         timestamp: new Date().toISOString(),
         sessionId: currentSession?.token || 'unknown'
       });
-      
+
       // Keep only last 50 activities
       if (activities.length > 50) {
         activities.splice(50);
       }
-      
+
       localStorage.setItem(`activities_${currentUser.id}`, JSON.stringify(activities));
       displayRecentActivity();
     }
 
     function displayRecentActivity() {
       if (!currentUser) return;
-      
+
       const activities = JSON.parse(localStorage.getItem(`activities_${currentUser.id}`)) || [];
       const activityList = document.getElementById('activity-list');
-      
+
       if (activities.length === 0) {
         activityList.innerHTML = '<p style="color: #b3b3b3;">No recent activity</p>';
         return;
       }
-      
+
       activityList.innerHTML = activities.slice(0, 10).map(activity => {
         const timeAgo = getTimeAgo(new Date(activity.timestamp));
         const iconMap = {
@@ -4120,7 +4163,7 @@
           'Playlist Created': 'fas fa-list-ul',
           'Page visited': 'fas fa-eye'
         };
-        
+
         return `
           <div class="activity-item">
             <i class="${iconMap[activity.action] || 'fas fa-circle'}"></i>
@@ -4140,7 +4183,7 @@
       const diffMins = Math.floor(diffSecs / 60);
       const diffHours = Math.floor(diffMins / 60);
       const diffDays = Math.floor(diffHours / 24);
-      
+
       if (diffSecs < 60) return 'Just now';
       if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
       if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
@@ -4153,28 +4196,28 @@
       document.getElementById('user-avatar').src = currentUser.avatar;
       document.getElementById('user-display-name').textContent = currentUser.name;
       document.getElementById('user-email').textContent = currentUser.email;
-      
+
       // Update stats with real data
       const userPlaylists = playlists.filter(p => p.createdBy === currentUser.id);
       const userFavorites = favorites.filter(f => f.userId === currentUser.id);
-      
+
       document.getElementById('total-playlists').textContent = userPlaylists.length;
       document.getElementById('total-favorites').textContent = userFavorites.length;
-      
+
       // Calculate listening time from activity
       const activities = JSON.parse(localStorage.getItem(`activities_${currentUser.id}`)) || [];
       const playActivities = activities.filter(a => a.action === 'Song Played').length;
       const estimatedHours = Math.floor(playActivities * 3.5 / 60); // Assuming 3.5 min average song
-      
+
       document.getElementById('total-listening').textContent = estimatedHours;
-      
+
       // Load user settings
       if (currentUser.settings) {
         document.getElementById('dark-mode-toggle').checked = currentUser.settings.darkMode;
         document.getElementById('autoplay-toggle').checked = currentUser.settings.autoplay;
         document.getElementById('hq-audio-toggle').checked = currentUser.settings.highQuality;
       }
-      
+
       displayRecentActivity();
     }
 
@@ -4215,17 +4258,17 @@
     function saveProfileChanges() {
       const newName = document.getElementById('edit-name').value.trim();
       const newAvatar = document.getElementById('edit-avatar').value.trim();
-      
+
       if (!newName) {
         showDownloadMessage('Name cannot be empty', true);
         return;
       }
-      
+
       if (newName.length < 2) {
         showDownloadMessage('Name must be at least 2 characters', true);
         return;
       }
-      
+
       // Update user data
       currentUser.name = newName;
       if (newAvatar) {
@@ -4233,16 +4276,16 @@
       } else {
         currentUser.avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(newName)}&background=1DB954&color=fff&size=150`;
       }
-      
+
       // Update in database
       userDatabase[currentUser.email] = currentUser;
       localStorage.setItem('userDatabase', JSON.stringify(userDatabase));
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
-      
+
       updateUserProfile();
       updateActivityLog('Profile Update', 'Profile information updated');
       showDownloadMessage('Profile updated successfully!');
-      
+
       document.querySelector('.playlist-modal').remove();
     }
 
@@ -4255,21 +4298,21 @@
           if (toggle) {
             toggle.addEventListener('change', (e) => {
               if (!currentUser) return;
-              
+
               const setting = toggleId.replace('-toggle', '').replace('-', '');
               const settingMap = {
                 'darkmode': 'darkMode',
                 'autoplay': 'autoplay',
                 'hqaudio': 'highQuality'
               };
-              
+
               currentUser.settings = currentUser.settings || {};
               currentUser.settings[settingMap[setting]] = e.target.checked;
-              
+
               userDatabase[currentUser.email] = currentUser;
               localStorage.setItem('userDatabase', JSON.stringify(userDatabase));
               localStorage.setItem('currentUser', JSON.stringify(currentUser));
-              
+
               updateActivityLog('Settings', `${settingMap[setting]} ${e.target.checked ? 'enabled' : 'disabled'}`);
             });
           }
@@ -4280,15 +4323,15 @@
     function logoutUser() {
       if (confirm('Are you sure you want to logout?')) {
         updateActivityLog('Logout', 'User logged out');
-        
+
         // Clear session data
         localStorage.removeItem('currentSession');
         localStorage.removeItem('currentUser');
         localStorage.removeItem('rememberUser');
-        
+
         currentUser = null;
         currentSession = null;
-        
+
         showDownloadMessage('Logged out successfully');
         checkUserLoginStatus();
       }
@@ -4304,17 +4347,20 @@
             <i class="fas fa-crown" style="margin-right: 10px;"></i>Upgrade to Ultimate
           </h3>
           <div style="text-align: center; margin: 20px 0;">
-            <div style="font-size: 48px; color: #ffd700; margin-bottom: 20px;">
+            <div style="font-size: 64px; color: #1DB954; margin-bottom: 20px;">
               <i class="fas fa-rocket"></i>
             </div>
-            <div style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 140, 0, 0.1)); border-radius: 15px; padding: 20px; margin-bottom: 20px;">
-              <h4 style="color: #ffd700; margin-bottom: 15px;">🚀 Launch Special - 50% OFF!</h4>
+            <div style="margin: 15px 0; padding: 15px; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border: 1px solid rgba(255, 215, 0, 0.3);">
+              <h4 style="color: #ffd700; margin-bottom: 15px;">🎉 MEGA LAUNCH OFFER - 99.7% OFF!</h4>
               <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
-                <span style="text-decoration: line-through; color: #888; font-size: 24px;">$19.99</span>
-                <span style="color: #1DB954; font-size: 36px; font-weight: 800;">$9.99</span>
-                <span style="color: #fff;">/month</span>
+                <span style="text-decoration: line-through; color: #888; font-size: 24px;">₹299</span>
+                <span style="color: #1DB954; font-size: 48px; font-weight: 900;">FREE</span>
+                <span style="color: #fff; font-size: 18px;">for 7 days</span>
               </div>
-              <p style="color: #b3b3b3; font-size: 14px;">First month only - then $19.99/month</p>
+              <div style="margin: 15px 0; padding: 15px; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border: 1px solid rgba(255, 215, 0, 0.3);">
+                <p style="color: #ffd700; font-size: 18px; font-weight: 700; margin: 0;">Then only ₹1/month forever!</p>
+                <p style="color: #b3b3b3; font-size: 12px; margin: 5px 0 0 0;">No hidden charges • Cancel anytime • World's cheapest premium</p>
+              </div>
             </div>
             <div style="text-align: left; margin: 20px 0;">
               <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0; color: #fff;">
@@ -4438,7 +4484,7 @@
             </div>
             <h4 style="color: #fff; margin-bottom: 15px;">Connect with Music Lovers</h4>
             <p style="color: #b3b3b3; margin-bottom: 25px;">Share your playlists, discover new music through friends, and see what's trending in your network.</p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 25px 0;">
               <div style="background: rgba(29, 185, 84, 0.1); padding: 20px; border-radius: 15px;">
                 <i class="fas fa-share-alt" style="color: #1DB954; font-size: 24px; margin-bottom: 10px;"></i>
                 <h5 style="color: #fff; margin-bottom: 8px;">Share Playlists</h5>
@@ -4601,7 +4647,7 @@
       const input = document.getElementById('ai-input');
       const response = document.getElementById('ai-response');
       const command = input.value.toLowerCase();
-      
+
       if (command.includes('upbeat') || command.includes('energetic')) {
         response.innerHTML = '<i class="fas fa-robot" style="margin-right: 8px; color: #1DB954;"></i>Great choice! I\'m creating an upbeat playlist with high-energy tracks perfect for your mood! 🎵⚡';
       } else if (command.includes('chill') || command.includes('relax')) {
@@ -4611,7 +4657,7 @@
       } else {
         response.innerHTML = '<i class="fas fa-robot" style="margin-right: 8px; color: #1DB954;"></i>I can help you discover music, create playlists, or control playback! Try asking about genres, moods, or specific artists 🎵';
       }
-      
+
       input.value = '';
     }
 
@@ -4687,7 +4733,7 @@
       displayFavorites();
       displayPlaylists();
       updateRestrictionUI();
-      
+
       // Show welcome message for guests
       if (!currentUser) {
         setTimeout(() => {
@@ -5006,19 +5052,19 @@
     // Play song
     function playSong(index) {
       if (index < 0 || index >= songs.length) return;
-      
+
       // Check play restrictions for guests
       if (!canPerformAction('play')) {
         showRestrictionNotice('play');
         showDownloadMessage('Play limit reached! Please register for unlimited access.', true);
         return;
       }
-      
+
       currentSongIndex = index;
       currentView = 'trending';
       const song = songs[index];
 
-      // Increment play count for guests
+            // Increment play count for guests
       incrementActionCount('play');
 
       // Hide mini player when starting new song
@@ -5055,14 +5101,14 @@
     // Play song from favorites
     function playSongFromFavorites(index) {
       if (index < 0 || index >= favorites.length) return;
-      
+
       // Check play restrictions for guests
       if (!canPerformAction('play')) {
         showRestrictionNotice('play');
         showDownloadMessage('Play limit reached! Please register for unlimited access.', true);
         return;
       }
-      
+
       currentSongIndex = index;
       currentView = 'favorites';
       const song = favorites[index];
@@ -5455,14 +5501,14 @@
 
     function playPlaylistSong(index) {
       if (!currentPlaylist || index < 0 || index >= currentPlaylist.songs.length) return;
-      
+
       // Check play restrictions for guests
       if (!canPerformAction('play')) {
         showRestrictionNotice('play');
         showDownloadMessage('Play limit reached! Please register for unlimited access.', true);
         return;
       }
-      
+
       currentSongIndex = index;
       currentView = 'playlist';
       const song = currentPlaylist.songs[index];
@@ -5548,4 +5594,4 @@
     });
   </script>
 </body>
-</html
+</htm
