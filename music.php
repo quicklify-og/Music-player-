@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickMusic - Premium Music Player</title>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuickMusic">
+  <meta name="msapplication-TileColor" content="#1DB954">
+  <meta name="theme-color" content="#1DB954">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="Q.png">
+  <link rel="icon" type="image/png" href="Q.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -3579,6 +3588,189 @@
   <footer>Made with 🎵 by QuickScript</footer>
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
+    // PWA Installation and Service Worker
+    let deferredPrompt;
+    let isAppInstalled = false;
+
+    // Check if app is already installed
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      showInstallButton();
+    });
+
+    // Register service worker for background playback
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('ServiceWorker registered: ', registration);
+            // Enable background sync
+            if ('sync' in registration) {
+              registration.sync.register('background-sync');
+            }
+          })
+          .catch((error) => {
+            console.log('ServiceWorker registration failed: ', error);
+          });
+      });
+    }
+
+    // Media Session API for background playback controls
+    function setupMediaSession() {
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.setActionHandler('play', () => {
+          if (audio.paused) togglePlayPause();
+        });
+        
+        navigator.mediaSession.setActionHandler('pause', () => {
+          if (!audio.paused) togglePlayPause();
+        });
+        
+        navigator.mediaSession.setActionHandler('previoustrack', () => {
+          previousSong();
+        });
+        
+        navigator.mediaSession.setActionHandler('nexttrack', () => {
+          nextSong();
+        });
+        
+        navigator.mediaSession.setActionHandler('seekbackward', (details) => {
+          const skipTime = details.seekOffset || 10;
+          audio.currentTime = Math.max(audio.currentTime - skipTime, 0);
+        });
+        
+        navigator.mediaSession.setActionHandler('seekforward', (details) => {
+          const skipTime = details.seekOffset || 10;
+          audio.currentTime = Math.min(audio.currentTime + skipTime, audio.duration || 0);
+        });
+      }
+    }
+
+    // Update media session metadata
+    function updateMediaSession(song) {
+      if ('mediaSession' in navigator && song) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: song.name,
+          artist: song.artist,
+          album: song.album || 'QuickMusic',
+          artwork: [
+            { src: song.thumbnail, sizes: '96x96', type: 'image/png' },
+            { src: song.thumbnail, sizes: '128x128', type: 'image/png' },
+            { src: song.thumbnail, sizes: '192x192', type: 'image/png' },
+            { src: song.thumbnail, sizes: '256x256', type: 'image/png' },
+            { src: song.thumbnail, sizes: '384x384', type: 'image/png' },
+            { src: song.thumbnail, sizes: '512x512', type: 'image/png' }
+          ]
+        });
+        
+        // Update playback state
+        navigator.mediaSession.playbackState = audio.paused ? 'paused' : 'playing';
+      }
+    }
+
+    // Show install button in header
+    function showInstallButton() {
+      const header = document.querySelector('.header-left');
+      if (header && !document.getElementById('install-btn')) {
+        const installBtn = document.createElement('button');
+        installBtn.id = 'install-btn';
+        installBtn.innerHTML = '<i class="fas fa-download"></i> Install App';
+        installBtn.style.cssText = `
+          background: linear-gradient(45deg, #1DB954, #8a2be2);
+          border: none;
+          border-radius: 12px;
+          color: #fff;
+          padding: 10px 20px;
+          font-size: 12px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin-left: 15px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        `;
+        installBtn.onclick = installApp;
+        header.appendChild(installBtn);
+      }
+    }
+
+    // Install PWA
+    async function installApp() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          showDownloadMessage('🎉 QuickMusic installed successfully!');
+          document.getElementById('install-btn')?.remove();
+          isAppInstalled = true;
+        }
+        deferredPrompt = null;
+      }
+    }
+
+    // Enable wake lock to prevent screen sleep during playback
+    let wakeLock = null;
+    async function requestWakeLock() {
+      try {
+        if ('wakeLock' in navigator) {
+          wakeLock = await navigator.wakeLock.request('screen');
+          console.log('Wake lock activated');
+        }
+      } catch (err) {
+        console.log('Wake lock failed:', err);
+      }
+    }
+
+    function releaseWakeLock() {
+      if (wakeLock) {
+        wakeLock.release();
+        wakeLock = null;
+        console.log('Wake lock released');
+      }
+    }
+
+    // Background audio handling
+    function setupBackgroundAudio() {
+      // Enable audio to continue in background
+      audio.addEventListener('play', () => {
+        requestWakeLock();
+        setupMediaSession();
+      });
+      
+      audio.addEventListener('pause', () => {
+        releaseWakeLock();
+      });
+      
+      // Handle visibility change for background playback
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden && !audio.paused) {
+          // App is in background but music should continue
+          console.log('App backgrounded, music continues');
+          if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({
+              type: 'BACKGROUND_PLAY',
+              payload: {
+                action: 'continue',
+                songInfo: getCurrentSongInfo()
+              }
+            });
+          }
+        } else if (!document.hidden) {
+          // App is back in foreground
+          console.log('App foregrounded');
+        }
+      });
+    }
+
+    function getCurrentSongInfo() {
+      const songList = currentView === 'favorites' ? favorites : 
+                      currentView === 'playlist' ? currentPlaylist?.songs : songs;
+      if (!songList || currentSongIndex < 0 || currentSongIndex >= songList.length) return null;
+      return songList[currentSongIndex];
+    }
+
     // YouTube IFrame Player API
     let player;
     function onYouTubeIframeAPIReady() {
@@ -4733,6 +4925,10 @@
       displayFavorites();
       displayPlaylists();
       updateRestrictionUI();
+      
+      // Initialize background audio and PWA features
+      setupBackgroundAudio();
+      setupMediaSession();
 
       // Show welcome message for guests
       if (!currentUser) {
@@ -4742,6 +4938,13 @@
           }
         }, 2000);
       }
+
+      // Show install prompt for PWA
+      setTimeout(() => {
+        if (deferredPrompt && !isAppInstalled) {
+          showDownloadMessage('💡 Install QuickMusic as an app for the best experience!');
+        }
+      }, 5000);
     };
 
     // Fetch trending songs
@@ -5064,7 +5267,7 @@
       currentView = 'trending';
       const song = songs[index];
 
-            // Increment play count for guests
+      // Increment play count for guests
       incrementActionCount('play');
 
       // Hide mini player when starting new song
@@ -5095,6 +5298,9 @@
         likeBtn.classList.toggle('active', isFavorited);
         shuffleBtn.classList.toggle('active', isShuffle);
         repeatBtn.classList.toggle('active', repeatMode !== 0);
+        
+        // Update media session for background playback
+        updateMediaSession(song);
       }
     }
 
